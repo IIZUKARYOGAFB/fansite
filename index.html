@@ -129,6 +129,9 @@
 
   /* ===== HERO ===== */
   #top { min-height: 85vh; position: relative; display: flex; align-items: center; overflow: hidden; }
+  @media (max-width: 600px) {
+  #top { padding-top: 60px !important; }
+  }
   .hero-bg {
     position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(0,87,168,0.35) 0%, transparent 70%),
@@ -1109,7 +1112,8 @@
   const heroSection = document.getElementById('top');
   function adjustHeroOffset() {
     const bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
-    heroSection.style.paddingTop = (bannerH) + 'px';
+    const isMobile = window.innerWidth <= 600;
+    heroSection.style.paddingTop = (isMobile ? 0 : bannerH) + 'px';
   }
   adjustHeroOffset();
   window.addEventListener('resize', adjustHeroOffset);
