@@ -754,8 +754,6 @@
         <div class="vpb-countdown">
           <span class="vpb-countdown-label" id="cdLabel">投票終了まで</span>
           <div class="countdown-units" id="countdownUnits">
-            <div class="countdown-unit"><div class="countdown-num" id="cdDays">--</div><div class="countdown-lbl">DAYS</div></div>
-            <span class="countdown-sep">:</span>
             <div class="countdown-unit"><div class="countdown-num" id="cdHours">--</div><div class="countdown-lbl">HRS</div></div>
             <span class="countdown-sep">:</span>
             <div class="countdown-unit"><div class="countdown-num" id="cdMins">--</div><div class="countdown-lbl">MIN</div></div>
@@ -1867,6 +1865,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
 // ↓ 投票終了日時を変更する場合はここを書き換え（JST）
 const VOTE_DEADLINE = new Date('2026-04-17T04:00:00+09:00');
 
+// ===== Countdown Timer（毎日0時リセット） =====
 const cdDays  = document.getElementById('cdDays');
 const cdHours = document.getElementById('cdHours');
 const cdMins  = document.getElementById('cdMins');
@@ -1875,26 +1874,32 @@ const cdUnits = document.getElementById('countdownUnits');
 const cdLabel = document.getElementById('cdLabel');
 
 const cdLabels = {
-  ja: '投票終了まで', ko: '투표 종료까지', en: 'Voting ends in', zh: '投票截止倒计时'
+  ja: '本日の投票終了まで', ko: '오늘 투표 종료까지', en: 'Today\'s vote resets in', zh: '今日投票截止倒计时'
 };
 
 function updateCountdown() {
   const now  = new Date();
-  const diff = VOTE_DEADLINE - now;
   const lang = localStorage.getItem('ryoga_lang') || 'ja';
   if (cdLabel) cdLabel.textContent = cdLabels[lang] || cdLabels.ja;
-  if (diff <= 0) {
-    if (cdUnits) cdUnits.innerHTML = '<span class="countdown-expired">投票期間終了</span>';
-    return;
-  }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
+
+  // 次の0時を計算（JST = UTC+9）
+  const jstOffset = 9 * 60 * 60 * 1000;
+  const nowJST = new Date(now.getTime() + jstOffset);
+  const midnight = new Date(Date.UTC(
+    nowJST.getUTCFullYear(),
+    nowJST.getUTCMonth(),
+    nowJST.getUTCDate() + 1,
+    -9, 0, 0, 0  // 翌日0時JST = 前日15時UTC
+  ));
+  const diff = midnight - now;
+
+  const h = Math.floor(diff / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  if (cdDays)  cdDays.textContent  = String(d).padStart(2,'0');
-  if (cdHours) cdHours.textContent = String(h).padStart(2,'0');
-  if (cdMins)  cdMins.textContent  = String(m).padStart(2,'0');
-  if (cdSecs)  cdSecs.textContent  = String(s).padStart(2,'0');
+
+  if (cdDays)  cdDays.textContent  = String(h).padStart(2,'0');
+  if (cdHours) cdHours.textContent = String(m).padStart(2,'0');
+  if (cdMins)  cdMins.textContent  = String(s).padStart(2,'0');
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
