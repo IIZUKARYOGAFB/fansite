@@ -172,20 +172,58 @@
   @keyframes orbPulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
 
   /* ===== NEXT EP ===== */
-  .next-ep { position: relative; background: var(--bg2); border-top: 2px solid var(--gold); border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; justify-content: center; gap: 40px; overflow: hidden; }
-  .next-ep::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--gold), transparent); }
-  .next-ep-label { font-family: var(--font-en); font-size: 0.75rem; letter-spacing: 4px; color: var(--gold); white-space: nowrap; display: flex; align-items: center; gap: 8px; }
-  .next-ep-label::before { content: '▶'; animation: blink 1s step-end infinite; }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-  .next-ep-content { text-align: center; }
-  .next-ep-date { font-family: var(--font-sub); font-size: 0.75rem; letter-spacing: 3px; color: var(--gray); margin-bottom: 4px; }
-  .next-ep-title { font-family: var(--font-jp); font-size: 1rem; font-weight: 700; color: var(--white); }
-  .next-ep-desc { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
-  .ticker-wrap { overflow: hidden; flex: 1; max-width: 400px; border-left: 1px solid var(--border); padding-left: 24px; }
+  .next-ep {
+    position: relative; background: var(--bg2);
+    border-top: 2px solid var(--gold); border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .next-ep::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--gold), transparent); z-index: 1; }
+
+  /* Ticker row at the very top */
+  .next-ep-ticker-row {
+    border-bottom: 1px solid var(--border);
+    padding: 8px 40px 8px 48px;
+    overflow: hidden;
+  }
   .ticker { display: flex; gap: 60px; animation: ticker 20s linear infinite; white-space: nowrap; }
   @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .ticker span { font-family: var(--font-jp); font-size: 0.75rem; color: var(--gray); letter-spacing: 2px; }
+  .ticker span { font-family: var(--font-jp); font-size: 0.72rem; color: var(--gray); letter-spacing: 2px; }
   .ticker span strong { color: var(--blue); }
+
+  /* Main body row: label | thumb | content */
+  .next-ep-body {
+    display: flex; align-items: stretch; gap: 0; padding: 0;
+  }
+  .next-ep-label {
+    font-family: var(--font-en); font-size: 0.7rem; letter-spacing: 4px; color: var(--gold);
+    writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    white-space: nowrap; display: flex; align-items: center; gap: 8px;
+    padding: 24px 16px; border-right: 1px solid var(--border); flex-shrink: 0;
+    background: rgba(245,196,0,0.04);
+  }
+  .next-ep-label::before { content: '▶'; animation: blink 1s step-end infinite; writing-mode: horizontal-tb; transform: rotate(180deg); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* Thumbnail */
+  .next-ep-thumb {
+    flex-shrink: 0; width: 220px;
+    background: #0a1525; position: relative; overflow: hidden;
+    border-right: 1px solid var(--border);
+  }
+  .next-ep-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .next-ep-thumb-placeholder {
+    width: 100%; height: 100%; min-height: 130px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; font-family: var(--font-en); color: var(--blue-dark); font-size: 0.65rem; letter-spacing: 3px;
+  }
+  /* "no image" state — shown when src is empty/commented */
+  .next-ep-thumb.no-img { display: none; }
+
+  /* Content area */
+  .next-ep-content { flex: 1; padding: 24px 32px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .next-ep-date { font-family: var(--font-sub); font-size: 0.72rem; letter-spacing: 3px; color: var(--gold); }
+  .next-ep-title { font-family: var(--font-jp); font-size: 1.05rem; font-weight: 900; color: var(--white); line-height: 1.5; }
+  .next-ep-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.8; margin-top: 4px; border-top: 1px solid var(--border); padding-top: 10px; }
 
   /* ===== SECTION ===== */
   section { padding: 100px 0; position: relative; }
@@ -216,15 +254,75 @@
   /* ===== CHARACTER ===== */
   #character { background: var(--bg); }
   .char-layout { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: start; }
-  .char-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .photo-frame { position: relative; overflow: hidden; background: var(--panel); border: 1px solid var(--border); }
-  .photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(4,8,16,0.8)); }
-  .photo-frame:first-child { grid-column: 1 / -1; aspect-ratio: 16/7; }
-  .photo-frame:not(:first-child) { aspect-ratio: 4/5; }
-  .photo-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
-  .photo-frame:hover img { transform: scale(1.04); }
-  .photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; font-family: var(--font-en); color: var(--blue-dark); font-size: 0.75rem; letter-spacing: 3px; min-height: 200px; }
-  .photo-placeholder svg { opacity: 0.3; }
+
+  /* Photo carousel */
+  .char-carousel { position: relative; user-select: none; }
+  .carousel-viewport {
+    overflow: hidden; position: relative;
+    background: var(--panel); border: 1px solid var(--border);
+    aspect-ratio: 3/4;
+  }
+  .carousel-track {
+    display: flex; height: 100%;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .carousel-slide {
+    flex: 0 0 100%; height: 100%; position: relative; overflow: hidden;
+  }
+  .carousel-slide img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .carousel-slide:hover img { transform: scale(1.04); }
+  .carousel-slide::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(4,8,16,0.7));
+  }
+  .slide-placeholder {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px;
+    font-family: var(--font-en); color: var(--blue-dark); font-size: 0.75rem; letter-spacing: 3px;
+  }
+  .slide-placeholder svg { opacity: 0.25; }
+
+  /* Prev / Next arrows */
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 10; background: rgba(4,8,16,0.75); border: 1px solid var(--border);
+    color: var(--white); cursor: pointer; width: 40px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: all 0.2s; backdrop-filter: blur(6px);
+  }
+  .carousel-btn:hover { background: rgba(0,180,255,0.2); border-color: var(--blue); color: var(--blue); }
+  .carousel-btn.prev { left: 0; clip-path: polygon(0 0, 100% 8px, 100% calc(100% - 8px), 0 100%); }
+  .carousel-btn.next { right: 0; clip-path: polygon(0 8px, 100% 0, 100% 100%, 0 calc(100% - 8px)); }
+  .carousel-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+  /* Counter badge */
+  .carousel-counter {
+    position: absolute; top: 12px; right: 12px; z-index: 10;
+    font-family: var(--font-sub); font-size: 0.72rem; letter-spacing: 2px; font-weight: 700;
+    background: rgba(4,8,16,0.8); border: 1px solid var(--border);
+    color: var(--gray); padding: 4px 10px; backdrop-filter: blur(6px);
+  }
+  .carousel-counter .cur { color: var(--white); }
+
+  /* Dot navigation */
+  .carousel-dots {
+    display: flex; justify-content: center; gap: 6px; margin-top: 12px; flex-wrap: wrap;
+  }
+  .carousel-dot {
+    width: 6px; height: 6px; background: var(--gray); border: none; cursor: pointer;
+    transform: rotate(45deg); transition: all 0.2s; padding: 0; flex-shrink: 0;
+  }
+  .carousel-dot.active { background: var(--blue); transform: rotate(45deg) scale(1.4); box-shadow: 0 0 8px var(--blue); }
+
+  /* Slide label (bottom of image) */
+  .slide-label {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
+    padding: 10px 14px; font-size: 0.72rem; color: rgba(255,255,255,0.6);
+    font-family: var(--font-jp); letter-spacing: 1px;
+  }
   .char-profile { position: sticky; top: 80px; }
   .profile-card { background: var(--panel); border: 1px solid var(--border); padding: 40px 36px; position: relative; overflow: hidden; }
   .profile-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--gold)); }
@@ -363,17 +461,20 @@
     .story-grid { grid-template-columns: 1fr; }
     .char-layout { grid-template-columns: 1fr; }
     .char-profile { position: static; }
+    .next-ep-thumb { width: 140px; }
     .movie-grid { grid-template-columns: 1fr 1fr; }
     .movie-featured { grid-template-columns: 1fr; }
-    .next-ep { flex-direction: column; gap: 16px; }
     .section-inner { padding: 0 20px; }
     #vote-period-banner { padding: 16px 20px; }
     .vpb-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .next-ep-content { padding: 16px 20px; }
+    .next-ep-ticker-row { padding: 8px 20px; }
   }
   @media (max-width: 600px) {
     .movie-grid { grid-template-columns: 1fr; }
     .sns-grid { grid-template-columns: 1fr; }
     .vote-links { flex-direction: column; align-items: center; }
+    .next-ep-thumb { display: none; }
   }
 </style>
 </head>
@@ -461,16 +562,37 @@
 
 <!-- NEXT EPISODE BANNER -->
 <div class="next-ep">
-  <div class="next-ep-label">NEXT BROADCAST</div>
-  <div class="next-ep-content">
-    <div class="next-ep-date">放送予定日時を記入してください</div>
-    <div class="next-ep-title">次回予告：ここに次の放送で亮賀くんがやることを記入</div>
-    <div class="next-ep-desc">〜最新情報はSNSで随時更新〜</div>
-  </div>
-  <div class="ticker-wrap">
+  <!-- ティッカー行 -->
+  <div class="next-ep-ticker-row">
     <div class="ticker">
       <span>＃飯塚亮賀 &nbsp;|&nbsp; <strong>PRODUCE 101 JAPAN 新世界</strong> &nbsp;|&nbsp; #iizukaryoga &nbsp;|&nbsp; 亮賀くんを応援しよう &nbsp;|&nbsp;</span>
       <span>＃飯塚亮賀 &nbsp;|&nbsp; <strong>PRODUCE 101 JAPAN 新世界</strong> &nbsp;|&nbsp; #iizukaryoga &nbsp;|&nbsp; 亮賀くんを応援しよう &nbsp;|&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- メイン行 -->
+  <div class="next-ep-body">
+    <div class="next-ep-label">NEXT BROADCAST</div>
+
+    <!-- ↓ サムネイル画像。画像を入れる場合は img の src に URL を、alt にテキストを記入。
+         画像を使わない場合は <div class="next-ep-thumb no-img"> にして非表示にできます -->
+    <div class="next-ep-thumb">
+      <!-- 画像を入れる場合: src に画像URLを記入 -->
+      <!-- <img src="YOUR_THUMBNAIL_URL" alt="次回予告サムネイル"> -->
+      <div class="next-ep-thumb-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        THUMBNAIL
+      </div>
+    </div>
+
+    <!-- テキストコンテンツ -->
+    <div class="next-ep-content">
+      <div class="next-ep-date">放送予定日時を記入してください（例：4月○日(○)○○:○○〜）</div>
+      <div class="next-ep-title">次回予告：ここに次の放送で亮賀くんがやることを記入</div>
+      <!-- ↓ 説明文。不要ならこの div ごと削除してもOK -->
+      <div class="next-ep-desc">
+        ここに次回放送の説明文を記入してください。亮賀くんがどんなことに挑戦するか、見どころや注目ポイントなど自由に書き込んでください。
+      </div>
     </div>
   </div>
 </div>
@@ -528,19 +650,83 @@
       <div class="section-title-jp">飯塚亮賀という人物</div>
     </div>
     <div class="char-layout">
-      <div class="char-photos reveal-left">
-        <div class="photo-frame">
-          <!-- <img src="YOUR_PHOTO_URL_1" alt="飯塚亮賀"> -->
-          <div class="photo-placeholder"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>MAIN PHOTO</div>
-        </div>
-        <div class="photo-frame">
-          <!-- <img src="YOUR_PHOTO_URL_2" alt="飯塚亮賀"> -->
-          <div class="photo-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>PHOTO 2</div>
-        </div>
-        <div class="photo-frame">
-          <!-- <img src="YOUR_PHOTO_URL_3" alt="飯塚亮賀"> -->
-          <div class="photo-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>PHOTO 3</div>
-        </div>
+      <!-- ===== PHOTO CAROUSEL =====
+           写真の追加方法:
+           以下の .carousel-slide ブロックをそのままコピーして貼り付けるだけで
+           枚数を増やせます。src に画像URLを、slide-label に説明を入れてください。
+           ================================= -->
+      <div class="char-carousel reveal-left">
+        <div class="carousel-viewport" id="charCarousel">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!-- SLIDE 1 ↓↓↓ src="画像URL" に変更 -->
+            <div class="carousel-slide">
+              <!-- <img src="YOUR_PHOTO_URL_1" alt="飯塚亮賀"> -->
+              <div class="slide-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                PHOTO 1
+              </div>
+              <div class="slide-label">写真1の説明（任意）</div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="carousel-slide">
+              <!-- <img src="YOUR_PHOTO_URL_2" alt="飯塚亮賀"> -->
+              <div class="slide-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                PHOTO 2
+              </div>
+              <div class="slide-label">写真2の説明（任意）</div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="carousel-slide">
+              <!-- <img src="YOUR_PHOTO_URL_3" alt="飯塚亮賀"> -->
+              <div class="slide-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                PHOTO 3
+              </div>
+              <div class="slide-label">写真3の説明（任意）</div>
+            </div>
+
+            <!-- SLIDE 4 -->
+            <div class="carousel-slide">
+              <!-- <img src="YOUR_PHOTO_URL_4" alt="飯塚亮賀"> -->
+              <div class="slide-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                PHOTO 4
+              </div>
+              <div class="slide-label">写真4の説明（任意）</div>
+            </div>
+
+            <!-- SLIDE 5 -->
+            <div class="carousel-slide">
+              <!-- <img src="YOUR_PHOTO_URL_5" alt="飯塚亮賀"> -->
+              <div class="slide-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                PHOTO 5
+              </div>
+              <div class="slide-label">写真5の説明（任意）</div>
+            </div>
+
+            <!-- ↓↓↓ ここに .carousel-slide ブロックをコピーして写真を追加 ↓↓↓ -->
+
+          </div><!-- /carousel-track -->
+
+          <!-- 枚数カウンター -->
+          <div class="carousel-counter"><span class="cur" id="carouselCur">1</span> / <span id="carouselTotal">5</span></div>
+        </div><!-- /carousel-viewport -->
+
+        <!-- ← → ボタン -->
+        <button class="carousel-btn prev" id="carouselPrev" aria-label="前の写真">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn next" id="carouselNext" aria-label="次の写真">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+
+        <!-- ドットナビ -->
+        <div class="carousel-dots" id="carouselDots"></div>
       </div>
       <div class="char-profile reveal">
         <div class="profile-card">
@@ -862,7 +1048,65 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
 
-  // Hero padding: account for banner height
+  // ===== Photo Carousel =====
+  (function() {
+    const track   = document.getElementById('carouselTrack');
+    const viewport= document.getElementById('charCarousel');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    const dotsWrap= document.getElementById('carouselDots');
+    const curEl   = document.getElementById('carouselCur');
+    const totalEl = document.getElementById('carouselTotal');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.carousel-slide');
+    const total  = slides.length;
+    let current  = 0;
+    let startX   = 0;
+    let isDragging = false;
+
+    // Init
+    totalEl.textContent = total;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `写真 ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    function goTo(index) {
+      current = (index + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      curEl.textContent = current + 1;
+      dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (!viewport.matches(':hover')) return;
+      if (e.key === 'ArrowLeft')  goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // Touch / drag support
+    viewport.addEventListener('pointerdown', (e) => { startX = e.clientX; isDragging = true; });
+    viewport.addEventListener('pointerup',   (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = e.clientX - startX;
+      if (Math.abs(diff) > 40) goTo(diff < 0 ? current + 1 : current - 1);
+    });
+    viewport.addEventListener('pointerleave', () => { isDragging = false; });
+    viewport.style.touchAction = 'pan-y';
+  })();
   const banner = document.getElementById('vote-period-banner');
   const heroSection = document.getElementById('top');
   function adjustHeroOffset() {
