@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IIZUKA RYOGA | PRODUCE 101 JAPAN 新世界</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00b4ff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RYOGA FAN">
+<link rel="apple-touch-icon" href="images/icon-192.png">
   <!-- OGP -->
 <meta property="og:title" content="飯塚亮賀 ファンサイト | PRODUCE 101 JAPAN 新世界">
 <meta property="og:description" content="PRODUCE 101 JAPAN 新世界に挑戦中の練習生・飯塚亮賀の有志ファンサイト。投票方法・最新動画・番組の軌跡をまとめています。">
@@ -1624,6 +1631,26 @@
       </a>
 
     </div>
+
+    <!-- PWA インストール案内 -->
+<div id="pwa-install-wrap" style="margin-top:32px;display:none;">
+  <div style="background:var(--panel);border:1px solid var(--border);padding:24px 28px;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold));"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="font-size:2rem;">📲</div>
+        <div>
+          <div style="font-family:var(--font-en);font-size:1rem;letter-spacing:3px;color:var(--white);margin-bottom:4px;" data-i18n="pwa.title">ADD TO HOME SCREEN</div>
+          <div style="font-size:0.78rem;color:var(--gray);" data-i18n="pwa.desc">アプリとしてホーム画面に追加すると、毎日の投票チェックが便利に！</div>
+        </div>
+      </div>
+      <button id="pwaInstallBtn" style="font-family:var(--font-sub);font-size:0.8rem;font-weight:700;letter-spacing:2px;color:var(--bg);background:var(--blue);border:none;cursor:pointer;padding:10px 24px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all 0.2s;white-space:nowrap;" data-i18n="pwa.btn">
+        ＋ 追加する
+      </button>
+    </div>
+  </div>
+</div>
+    
   </div>
 </section>
 
@@ -1876,7 +1903,10 @@ setInterval(updateCountdown, 1000);
 
   // ===== i18n =====
   const i18n = {
-    ja: {
+    ja: { 
+      'pwa.title': 'ADD TO HOME SCREEN',
+      'pwa.desc': 'アプリとしてホーム画面に追加すると、毎日の投票チェックが便利に！',
+      'pwa.btn': '＋ 追加する',
       'share.tag1': '応援タグ',
       'share.tag2': '布教タグ',
       'share.tag3': '応援タグ + 布教タグ',
@@ -1963,7 +1993,10 @@ setInterval(updateCountdown, 1000);
       'footer.note':    'このサイトは有志ファンが運営する非公式ファンサイトです。<br>PRODUCE 101 JAPAN 新世界 および 飯塚亮賀くんの公式サイトではありません。<br>掲載内容に関するお問い合わせは <a href="#">こちら</a>',
     },
 
-    ko: {
+    ko: { 
+      'pwa.title': 'ADD TO HOME SCREEN',
+      'pwa.desc': '홈 화면에 앱으로 추가하면 매일 투표 확인이 편리해요！',
+      'pwa.btn': '＋ 추가하기',
       'share.tag1': '응원 태그',
       'share.tag2': '포교 태그',
       'share.tag3': '응원 + 포교 태그',
@@ -2047,7 +2080,10 @@ setInterval(updateCountdown, 1000);
       'footer.note': '이 사이트는 유지 팬이 운영하는 비공식 팬사이트입니다.<br>PRODUCE 101 JAPAN 신세계 및 이이즈카 료가의 공식 사이트가 아닙니다.<br>문의는 <a href="#">여기</a>',
     },
 
-    en: {
+    en: { 
+      'pwa.title': 'ADD TO HOME SCREEN',
+      'pwa.desc': 'Add as an app for quick daily voting access！',
+      'pwa.btn': '＋ Add',
       'share.tag1': 'Cheer Tag',
       'share.tag2': 'Spread Tag',
       'share.tag3': 'Cheer + Spread Tags',
@@ -2131,7 +2167,10 @@ setInterval(updateCountdown, 1000);
       'footer.note': 'This is an unofficial fan site run by volunteer fans.<br>This is not the official site of PRODUCE 101 JAPAN SHINSEKAI or Ryoga Iizuka.<br>Contact: <a href="#">here</a>',
     },
 
-    zh: {
+    zh: { 
+      'pwa.title': 'ADD TO HOME SCREEN',
+      'pwa.desc': '添加到主屏幕，每天投票更方便！',
+      'pwa.btn': '＋ 添加',
       'share.tag1': '应援标签',
       'share.tag2': '安利标签',
       'share.tag3': '应援 + 安利标签',
@@ -2265,6 +2304,36 @@ setInterval(updateCountdown, 1000);
   }
   adjustHeroOffset();
   window.addEventListener('resize', adjustHeroOffset);
+
+  // ===== PWA =====
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/fansite/sw.js');
+  }
+
+  let deferredPrompt = null;
+  const pwaWrap = document.getElementById('pwa-install-wrap');
+  const pwaBtn  = document.getElementById('pwaInstallBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (pwaWrap) pwaWrap.style.display = 'block';
+  });
+
+  if (pwaBtn) {
+    pwaBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') pwaWrap.style.display = 'none';
+      deferredPrompt = null;
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    if (pwaWrap) pwaWrap.style.display = 'none';
+  });
+  
 </script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
