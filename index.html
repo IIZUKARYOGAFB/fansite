@@ -239,20 +239,37 @@
   .section-title-jp { font-family: var(--font-jp); font-size: 0.8rem; font-weight: 300; letter-spacing: 4px; color: var(--gray); margin-top: 8px; }
 
   /* ===== STORY ===== */
-  #story { background: var(--bg2); }
-  #story::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--blue), transparent); }
-  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .story-ep { background: var(--panel); border: 1px solid var(--border); padding: 32px; position: relative; overflow: hidden; transition: all 0.3s; }
-  .story-ep::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,180,255,0.05) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
-  .story-ep:hover { border-color: rgba(0,180,255,0.5); transform: translateY(-2px); }
-  .story-ep:hover::before { opacity: 1; }
-  .ep-num { font-family: var(--font-en); font-size: 4rem; color: rgba(0,180,255,0.08); position: absolute; right: 16px; bottom: 8px; line-height: 1; pointer-events: none; }
-  .ep-tag { font-family: var(--font-sub); font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; color: var(--blue); background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3); padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
-  .ep-title { font-family: var(--font-jp); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-  .ep-desc { font-size: 0.8rem; line-height: 1.9; color: var(--gray); }
-  .ep-result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-family: var(--font-sub); font-size: 0.75rem; letter-spacing: 2px; }
-  .ep-result.good { color: var(--gold); }
-  .ep-result.great { color: var(--blue); }
+#story { background: var(--bg2); }
+#story::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.story-ep { background: var(--panel); border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
+.story-ep::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,180,255,0.05) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 0; }
+.story-ep:hover { border-color: rgba(0,180,255,0.5); transform: translateY(-2px); }
+.story-ep:hover::before { opacity: 1; }
+.story-ep-body { padding: 28px 28px 48px; position: relative; z-index: 1; flex: 1; }
+.ep-num { font-family: var(--font-en); font-size: 4rem; color: rgba(0,180,255,0.08); position: absolute; right: 16px; bottom: 8px; line-height: 1; pointer-events: none; }
+.ep-tag { font-family: var(--font-sub); font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; color: var(--blue); background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3); padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+.ep-title { font-family: var(--font-jp); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.ep-desc { font-size: 0.8rem; line-height: 1.9; color: var(--gray); }
+.ep-result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-family: var(--font-sub); font-size: 0.75rem; letter-spacing: 2px; }
+.ep-result.good { color: var(--gold); }
+.ep-result.great { color: var(--blue); }
+
+/* Story mini carousel */
+.ep-carousel { position: relative; overflow: hidden; aspect-ratio: 16/9; background: #0a1020; flex-shrink: 0; }
+.ep-carousel-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+.ep-carousel-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
+.ep-carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ep-carousel-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; font-family: var(--font-en); color: var(--blue-dark); font-size: 0.65rem; letter-spacing: 3px; }
+.ep-carousel-placeholder svg { opacity: 0.2; }
+.ep-carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; background: rgba(4,8,16,0.7); border: 1px solid var(--border); color: var(--white); cursor: pointer; width: 28px; height: 40px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: blur(4px); padding: 0; }
+.ep-carousel-btn:hover { background: rgba(0,180,255,0.25); border-color: var(--blue); }
+.ep-carousel-btn.ep-prev { left: 0; clip-path: polygon(0 0, 100% 5px, 100% calc(100% - 5px), 0 100%); }
+.ep-carousel-btn.ep-next { right: 0; clip-path: polygon(0 5px, 100% 0, 100% 100%, 0 calc(100% - 5px)); }
+.ep-carousel-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.ep-carousel-counter { position: absolute; bottom: 8px; right: 10px; z-index: 5; font-family: var(--font-sub); font-size: 0.65rem; letter-spacing: 1px; color: rgba(255,255,255,0.7); background: rgba(4,8,16,0.65); padding: 2px 7px; backdrop-filter: blur(4px); }
+.ep-carousel-counter .ep-cur { color: var(--white); font-weight: 700; }
+.ep-carousel-progress { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--blue); z-index: 5; width: 0%; transition: width linear; box-shadow: 0 0 6px var(--blue); }
 
   /* ===== CHARACTER ===== */
   #character { background: var(--bg); }
@@ -635,35 +652,64 @@
       <div class="section-title-jp">番組での軌跡</div>
     </div>
     <div class="story-grid">
-      <div class="story-ep reveal">
-        <div class="ep-tag">EP.01</div>
-        <div class="ep-title">第1話：初登場・自己紹介</div>
-        <p class="ep-desc">番組初回、飯塚亮賀として初めてのステージへ。サッカーとアニメを愛する個性をぶつけ、審査員・国民プロデューサーへ第一印象をアピール。</p>
-        <div class="ep-result good">★ ここに結果・順位などを記入</div>
-        <div class="ep-num">01</div>
+
+  <!-- EP.01 ===== 写真の追加: .ep-carousel-slide をコピーして増やす ===== -->
+  <div class="story-ep reveal">
+    <div class="ep-carousel" data-autoplay="4000">
+      <div class="ep-carousel-track">
+         <div class="ep-carousel-slide">
+           <img src="images/chapter1/1.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/2.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/3.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/4.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/5.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/6.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/7.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/8.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/9.WEBP" alt="EP01">
+         </div>
+        <div class="ep-carousel-slide">
+           <img src="images/chapter1/10.WEBP" alt="EP01">
+         </div>
       </div>
-      <div class="story-ep reveal">
-        <div class="ep-tag">EP.02</div>
-        <div class="ep-title">第2話：クラス評価・練習</div>
-        <p class="ep-desc">クラス評価でのパフォーマンス。同期練習生との絆を深めながら、より高いレベルへの挑戦が始まる。努力の背景にある情熱が垣間見えた回。</p>
-        <div class="ep-result great">✦ ここに結果・ハイライトを記入</div>
-        <div class="ep-num">02</div>
-      </div>
-      <div class="story-ep reveal">
-        <div class="ep-tag">EP.03</div>
-        <div class="ep-title">第3話：グループ対決</div>
-        <p class="ep-desc">グループパフォーマンスでの見どころ。チームをまとめるリーダーシップと、ステージに立つ熱量を見せた亮賀くんの成長の瞬間。</p>
-        <div class="ep-result good">★ ここに結果を記入</div>
-        <div class="ep-num">03</div>
-      </div>
-      <div class="story-ep reveal">
-        <div class="ep-tag">EP.04</div>
-        <div class="ep-title">第4話：ここに内容を記入</div>
-        <p class="ep-desc">エピソードの詳細をここに記入してください。亮賀くんの活躍・エピソード・名シーンなど、ファンとして伝えたいことを自由に書き込んでください。</p>
-        <div class="ep-result great">✦ 結果をここに記入</div>
-        <div class="ep-num">04</div>
-      </div>
+      <button class="ep-carousel-btn ep-prev" aria-label="前へ"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="ep-carousel-btn ep-next" aria-label="次へ"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="ep-carousel-counter"><span class="ep-cur">1</span> / <span class="ep-total">2</span></div>
+      <div class="ep-carousel-progress"></div>
     </div>
+    <div class="story-ep-body">
+      <div class="ep-tag">EP.01</div>
+      <div class="ep-title">第1話：何者でもない僕</div>
+      <p class="ep-desc">ずっとサッカーばかりしてきた少年が、ある日突然アイドルを目指したら？<br>
+        「新世界」で目覚めた飯塚亮賀は、右も左もわからないまま「FRESH-MEN」として最初のクラス分けステージに立つ。<br>
+        目の前に広がる景色に目を輝かせながら彼が届けたのは、朝の光のように真っ直ぐで爽やかな歌声だった。<br>
+        披露した『はじめまして』への評価は、Cクラス。まだまだ未完成。だからこそ目が離せない。<br>
+        これは、一人の少年がアイドルとして世界へ羽ばたくまでの、記念すべき最初の1ページ。</p>
+      <div class="ep-result good">★ ここに結果・順位などを記入</div>
+      <div class="ep-num">01</div>
+    </div>
+  </div>
+
+  <!-- EP.02〜04も同じ構造。EP番号・テキストだけ変えてコピー -->
+  <!-- （以下省略 → ファイルの該当箇所をそのまま使用） -->
+
+</div>
     <div class="diamond-divider"><span></span></div>
     <div style="text-align:center;margin-top:20px;"><p style="font-size:0.8rem;color:var(--gray);">※ エピソードは随時追加・更新されます</p></div>
   </div>
@@ -1190,6 +1236,71 @@
     viewport.addEventListener('pointerleave', () => { isDragging = false; });
     viewport.style.touchAction = 'pan-y';
   })();
+  // ===== Episode Carousels (Story) — autoplay + arrows =====
+document.querySelectorAll('.ep-carousel').forEach(carousel => {
+  const track    = carousel.querySelector('.ep-carousel-track');
+  const slides   = carousel.querySelectorAll('.ep-carousel-slide');
+  const prevBtn  = carousel.querySelector('.ep-prev');
+  const nextBtn  = carousel.querySelector('.ep-next');
+  const curEl    = carousel.querySelector('.ep-cur');
+  const totalEl  = carousel.querySelector('.ep-total');
+  const progress = carousel.querySelector('.ep-carousel-progress');
+  const total    = slides.length;
+  const delay    = parseInt(carousel.dataset.autoplay) || 4000;
+  let current = 0, timer = null, startX = 0, isDrag = false;
+
+  totalEl.textContent = total;
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    curEl.textContent = current + 1;
+  }
+
+  function startAuto() {
+    if (total <= 1) return;
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      progress.style.transition = `width ${delay}ms linear`;
+      progress.style.width = '100%';
+    }));
+    timer = setTimeout(() => { goTo(current + 1); startAuto(); }, delay);
+  }
+
+  function stopAuto() {
+    clearTimeout(timer);
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+  }
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+  prevBtn.addEventListener('click', () => { stopAuto(); goTo(current - 1); startAuto(); });
+  nextBtn.addEventListener('click', () => { stopAuto(); goTo(current + 1); startAuto(); });
+
+  let startY2 = 0;
+  carousel.addEventListener('pointerdown', (e) => { startX = e.clientX; startY2 = e.clientY; isDrag = true; });
+  carousel.addEventListener('pointermove', (e) => {
+    if (!isDrag) return;
+    if (Math.abs(e.clientX - startX) > Math.abs(e.clientY - startY2) && Math.abs(e.clientX - startX) > 8) e.preventDefault();
+  }, { passive: false });
+  carousel.addEventListener('pointerup', (e) => {
+    if (!isDrag) return; isDrag = false;
+    const diff = e.clientX - startX;
+    if (Math.abs(diff) > 40) { stopAuto(); goTo(diff < 0 ? current + 1 : current - 1); startAuto(); }
+  });
+  carousel.addEventListener('pointerleave', () => { isDrag = false; });
+  carousel.style.touchAction = 'pan-y';
+
+  if (total <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    carousel.querySelector('.ep-carousel-counter').style.display = 'none';
+  }
+
+  startAuto();
+});
   const banner = document.getElementById('vote-period-banner');
   const heroSection = document.getElementById('top');
   function adjustHeroOffset() {
