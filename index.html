@@ -94,7 +94,7 @@
     max-height: 0; overflow: hidden;
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .nav-mobile.open { max-height: 450px; }
+  .nav-mobile.open { max-height: 560px; }
   .nav-mobile a {
     font-family: var(--font-sub); font-size: 1rem; font-weight: 700;
     letter-spacing: 4px; color: var(--gray); text-decoration: none;
@@ -814,8 +814,8 @@
       <span style="font-size:2rem;">𝕏</span>
       <span style="font-family:var(--font-jp);font-size:0.9rem;line-height:1.7;">
         <strong style="display:block;color:#1d9bf0;">@IIZUKARYOGAFB</strong>
-        最新情報はXをチェック！<br>
-        <span style="font-size:0.75rem;color:var(--gray);">フォローして亮賀くんの情報を受け取ろう</span>
+        <span data-i18n="xcard.main">最新情報はXをチェック！</span><br>
+        <span style="font-size:0.75rem;color:var(--gray);" data-i18n="xcard.sub">フォローして亮賀くんの情報を受け取ろう</span>
       </span>
     </a>
       </div>
@@ -833,7 +833,7 @@
         <a href="https://x.gd/u3GWs" target="_blank" rel="noopener noreferrer" class="share-btn">
           <div class="share-btn-icon">📌</div>
           <div class="share-btn-body">
-            <div class="share-btn-tag">応援タグ</div>
+            <div class="share-btn-tag" data-i18n="share.tag1">応援タグ</div>
             <div class="share-btn-label">#りょがサポで亮賀にアシストを</div>
           </div>
           <div class="share-btn-arrow">→</div>
@@ -841,7 +841,7 @@
         <a href="https://x.gd/LH8Gu" target="_blank" rel="noopener noreferrer" class="share-btn">
           <div class="share-btn-icon">📌</div>
           <div class="share-btn-body">
-            <div class="share-btn-tag">布教タグ</div>
+            <div class="share-btn-tag" data-i18n="share.tag2">布教タグ</div>
             <div class="share-btn-label">#亮賀への愛がたいりょうが</div>
           </div>
           <div class="share-btn-arrow">→</div>
@@ -849,7 +849,7 @@
         <a href="https://x.gd/qcSj3w" target="_blank" rel="noopener noreferrer" class="share-btn">
           <div class="share-btn-icon">📌</div>
           <div class="share-btn-body">
-            <div class="share-btn-tag">応援タグ + 布教タグ</div>
+            <div class="share-btn-tag" data-i18n="share.tag3">応援タグ + 布教タグ</div>
             <div class="share-btn-label">#りょがサポ × #亮賀への愛がたいりょうが</div>
           </div>
           <div class="share-btn-arrow">→</div>
@@ -857,7 +857,7 @@
         <a href="https://x.gd/BlcuO" target="_blank" rel="noopener noreferrer" class="share-btn">
           <div class="share-btn-icon">📌</div>
           <div class="share-btn-body">
-            <div class="share-btn-tag">応援 + 布教 + 名前 + 番組タグ</div>
+            <div class="share-btn-tag" data-i18n="share.tag4">応援 + 布教 + 名前 + 番組タグ</div>
             <div class="share-btn-label">#飯塚亮賀 #PRODUCE101JAPAN新世界 他</div>
           </div>
           <div class="share-btn-arrow">→</div>
@@ -865,7 +865,7 @@
         <a href="https://x.gd/HIVaw" target="_blank" rel="noopener noreferrer" class="share-btn">
           <div class="share-btn-icon">🌏</div>
           <div class="share-btn-body">
-            <div class="share-btn-tag">GLOBAL</div>
+            <div class="share-btn-tag" data-i18n="share.tag5">GLOBAL</div>
             <div class="share-btn-label">海外向け / For international fans</div>
           </div>
           <div class="share-btn-arrow">→</div>
@@ -1877,6 +1877,13 @@ setInterval(updateCountdown, 1000);
   // ===== i18n =====
   const i18n = {
     ja: {
+      'share.tag1': '応援タグ',
+      'share.tag2': '布教タグ',
+      'share.tag3': '応援タグ + 布教タグ',
+      'share.tag4': '応援 + 布教 + 名前 + 番組タグ',
+      'share.tag5': 'GLOBAL',
+      'xcard.main': '最新情報はXをチェック！',
+      'xcard.sub': 'フォローして亮賀くんの情報を受け取ろう',
       'vote.tag': 'NATIONAL PRODUCER',
       'social.latestTitle': 'LATEST POSTS',
       'social.latestSub':   '飯塚亮賀FD【りょがサポ】最新情報',
@@ -1957,6 +1964,13 @@ setInterval(updateCountdown, 1000);
     },
 
     ko: {
+      'share.tag1': '응원 태그',
+      'share.tag2': '포교 태그',
+      'share.tag3': '응원 + 포교 태그',
+      'share.tag4': '응원 + 포교 + 이름 + 방송 태그',
+      'share.tag5': 'GLOBAL',
+      'xcard.main': '최신 정보는 X를 확인！',
+      'xcard.sub': '팔로우해서 료가의 소식을 받아보세요',
       'vote.tag': 'SEKAI PRODUCER',
       'social.latestTitle': 'LATEST POSTS',
       'social.latestSub':   '이이즈카 료가 FD 최신 정보',
@@ -2034,6 +2048,13 @@ setInterval(updateCountdown, 1000);
     },
 
     en: {
+      'share.tag1': 'Cheer Tag',
+      'share.tag2': 'Spread Tag',
+      'share.tag3': 'Cheer + Spread Tags',
+      'share.tag4': 'Cheer + Spread + Name + Show Tags',
+      'share.tag5': 'GLOBAL',
+      'xcard.main': 'Check X for the latest updates！',
+      'xcard.sub': 'Follow us to stay up to date on Ryoga',
       'vote.tag': 'SEKAI PRODUCER',
       'social.latestTitle': 'LATEST POSTS',
       'social.latestSub':   'Iizuka Ryoga FD — Latest Updates',
@@ -2111,6 +2132,13 @@ setInterval(updateCountdown, 1000);
     },
 
     zh: {
+      'share.tag1': '应援标签',
+      'share.tag2': '安利标签',
+      'share.tag3': '应援 + 安利标签',
+      'share.tag4': '应援 + 安利 + 名字 + 节目标签',
+      'share.tag5': 'GLOBAL',
+      'xcard.main': '在X上查看最新资讯！',
+      'xcard.sub': '关注我们获取亮贺的最新消息',
       'vote.tag': 'SEKAI PRODUCER',
       'social.latestTitle': 'LATEST POSTS',
       'social.latestSub':   '饭冢亮贺FD 最新资讯',
