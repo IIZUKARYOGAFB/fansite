@@ -1109,7 +1109,7 @@
   const heroSection = document.getElementById('top');
   function adjustHeroOffset() {
     const bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
-    heroSection.style.paddingTop = (60 + bannerH) + 'px';
+    heroSection.style.paddingTop = (bannerH) + 'px';
   }
   adjustHeroOffset();
   window.addEventListener('resize', adjustHeroOffset);
