@@ -744,23 +744,23 @@
           <strong>投票期間：〜 4月17日 (金) 4:00 まで</strong><br>
           毎日 0:00 以降に飯塚亮賀くんへの投票が可能！<span class="highlight">1日2票</span>、毎日欠かさず投票しよう！
         </div>
+        <div class="vpb-countdown">
+          <span class="vpb-countdown-label" id="cdLabel">投票終了まで</span>
+          <div class="countdown-units" id="countdownUnits">
+            <div class="countdown-unit"><div class="countdown-num" id="cdDays">--</div><div class="countdown-lbl">DAYS</div></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><div class="countdown-num" id="cdHours">--</div><div class="countdown-lbl">HRS</div></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><div class="countdown-num" id="cdMins">--</div><div class="countdown-lbl">MIN</div></div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-unit"><div class="countdown-num" id="cdSecs">--</div><div class="countdown-lbl">SEC</div></div>
+          </div>
       </div>
     </div>
     <a href="#vote" class="vpb-btn" data-i18n="vpb.btn">★ VOTE NOW →</a>
   </div>
 </div>
 
-  <div class="vpb-countdown">
-  <span class="vpb-countdown-label" id="cdLabel">投票終了まで</span>
-  <div class="countdown-units" id="countdownUnits">
-    <div class="countdown-unit"><div class="countdown-num" id="cdDays">--</div><div class="countdown-lbl">DAYS</div></div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit"><div class="countdown-num" id="cdHours">--</div><div class="countdown-lbl">HRS</div></div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit"><div class="countdown-num" id="cdMins">--</div><div class="countdown-lbl">MIN</div></div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit"><div class="countdown-num" id="cdSecs">--</div><div class="countdown-lbl">SEC</div></div>
-  </div>
 </div>
 
 <!-- HERO -->
@@ -804,8 +804,8 @@
       <div class="social-col-head">
         <div class="social-col-icon x-icon">𝕏</div>
         <div>
-          <div class="social-col-title">LATEST POSTS</div>
-          <div class="social-col-sub">飯塚亮賀FD【りょがサポ】最新情報</div>
+          <div class="social-col-title" data-i18n="social.latestTitle">LATEST POSTS</div>
+          <div class="social-col-sub" data-i18n="social.latestSub">飯塚亮賀FD【りょがサポ】最新情報</div>
         </div>
       </div>
       <div class="twitter-embed-wrap">
@@ -814,7 +814,7 @@
            data-chrome="noheader nofooter noborders"
            data-tweet-limit="5"
            data-height="480"
-           href="https://twitter.com/IIZUKARYOGAFB">
+           href="https://x.com/IIZUKARYOGAFB">
           Tweets by @IIZUKARYOGAFB
         </a>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -825,8 +825,8 @@
       <div class="social-col-head">
         <div class="social-col-icon x-icon">🔗</div>
         <div>
-          <div class="social-col-title">SHARE & CHEER</div>
-          <div class="social-col-sub">タップして亮賀くんを応援・拡散しよう</div>
+          <div class="social-col-title" data-i18n="social.shareTitle">SHARE & CHEER</div>
+          <div class="social-col-sub" data-i18n="social.shareSub">タップして亮賀くんを応援・拡散しよう</div>
         </div>
       </div>
       <div class="share-grid">
@@ -1878,6 +1878,10 @@ setInterval(updateCountdown, 1000);
   const i18n = {
     ja: {
       'vote.tag': 'NATIONAL PRODUCER',
+      'social.latestTitle': 'LATEST POSTS',
+      'social.latestSub':   '飯塚亮賀FD【りょがサポ】最新情報',
+      'social.shareTitle':  'SHARE & CHEER',
+      'social.shareSub':    'タップして亮賀くんを応援・拡散しよう',
       'nav.voteBtn': '★ VOTE NOW',
       'vpb.heading': '第1回投票 開催中！🗳️',
       'vpb.detail':  '<strong>投票期間：〜 4月17日 (金) 4:00 まで</strong><br>毎日 0:00 以降に飯塚亮賀くんへの投票が可能！<span class="highlight">1日2票</span>、毎日欠かさず投票しよう！',
@@ -1954,6 +1958,10 @@ setInterval(updateCountdown, 1000);
 
     ko: {
       'vote.tag': 'SEKAI PRODUCER',
+      'social.latestTitle': 'LATEST POSTS',
+      'social.latestSub':   '이이즈카 료가 FD 최신 정보',
+      'social.shareTitle':  'SHARE & CHEER',
+      'social.shareSub':    '탭해서 료가를 응원・확산하자',
       'nav.voteBtn': '★ 투표하기',
       'vpb.heading': '제1회 투표 진행 중！🗳️',
       'vpb.detail':  '<strong>투표 기간：～ 4월 17일 (금) 4:00 까지</strong><br>매일 0:00 이후 이이즈카 료가에게 투표 가능！하루 2표, 매일 잊지 말고 투표하세요！',
@@ -2027,6 +2035,10 @@ setInterval(updateCountdown, 1000);
 
     en: {
       'vote.tag': 'SEKAI PRODUCER',
+      'social.latestTitle': 'LATEST POSTS',
+      'social.latestSub':   'Iizuka Ryoga FD — Latest Updates',
+      'social.shareTitle':  'SHARE & CHEER',
+      'social.shareSub':    'Tap to support and spread the word',
       'nav.voteBtn': '★ VOTE NOW',
       'vpb.heading': 'Round 1 Voting Now Open！🗳️',
       'vpb.detail':  '<strong>Voting Period: Until April 17 (Fri) 4:00</strong><br>Vote for Ryoga Iizuka every day from 0:00！2 votes per day — don\'t miss it！',
@@ -2100,6 +2112,10 @@ setInterval(updateCountdown, 1000);
 
     zh: {
       'vote.tag': 'SEKAI PRODUCER',
+      'social.latestTitle': 'LATEST POSTS',
+      'social.latestSub':   '饭冢亮贺FD 最新资讯',
+      'social.shareTitle':  'SHARE & CHEER',
+      'social.shareSub':    '点击为亮贺应援·扩散',
       'nav.voteBtn': '★ 立即投票',
       'vpb.heading': '第1次投票进行中！🗳️',
       'vpb.detail':  '<strong>投票期间：至4月17日（周五）4:00</strong><br>每天0:00后可为饭冢亮贺投票！每天2票，每天坚持投票！',
