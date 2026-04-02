@@ -155,6 +155,37 @@
     clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
     transition: all 0.2s; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 8px;
   }
+  /* ===== NOTICE BANNER ===== */
+#notice-banner {
+  position: relative; z-index: 11; margin-top: 60px;
+  background: linear-gradient(90deg, rgba(29,155,240,0.15), rgba(0,180,255,0.08) 50%, rgba(29,155,240,0.15));
+  border-bottom: 2px solid #1d9bf0; padding: 14px 40px; overflow: hidden;
+}
+#notice-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(29,155,240,0.03) 20px, rgba(29,155,240,0.03) 21px);
+}
+.notice-inner {
+  position: relative; max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.notice-badge {
+  font-family: var(--font-en); font-size: 0.65rem; letter-spacing: 2px; font-weight: 700;
+  background: #1d9bf0; color: var(--white); padding: 3px 10px; white-space: nowrap; flex-shrink: 0;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+.notice-text {
+  font-size: 0.78rem; color: rgba(255,255,255,0.85); line-height: 1.6; flex: 1;
+}
+.notice-text strong { color: var(--white); }
+.notice-link {
+  font-family: var(--font-sub); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+  color: var(--white); background: #1d9bf0; text-decoration: none;
+  padding: 7px 18px; white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.notice-link:hover { background: #1a8cd8; box-shadow: 0 0 16px rgba(29,155,240,0.5); }
+@media (max-width: 600px) { #notice-banner { padding: 12px 20px; } }
   .vpb-btn:hover { background: var(--gold-light); box-shadow: 0 0 20px rgba(245,196,0,0.5); transform: translateY(-2px); }
   /* ===== COUNTDOWN TIMER ===== */
 .vpb-countdown { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
@@ -749,6 +780,20 @@
   <a href="#community" onclick="closeMobileMenu()">COMMUNITY</a>
 </nav>
 
+<!-- アカウント移行のお知らせ -->
+<div id="notice-banner">
+  <div class="notice-inner">
+    <div class="notice-badge">𝕏 NOTICE</div>
+    <div class="notice-text">
+      <strong>飯塚亮賀FD Xアカウント移行のお知らせ</strong><br>
+      この度、Xアカウントを@FD_RYOGA_JPに移行しました。お手数ですが、新アカウントのフォローをお願いいたします。
+    </div>
+    <a href="https://x.com/FD_RYOGA_JP" target="_blank" rel="noopener noreferrer" class="notice-link">
+      𝕏 新アカウントをフォロー →
+    </a>
+  </div>
+</div>
+  
 <!-- 投票期間バナー ／ display:block=表示 / display:none=非表示 -->
 <div id="vote-period-banner" style="display:block;">
   <div class="vpb-inner">
@@ -2305,9 +2350,11 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
   applyLang(localStorage.getItem('ryoga_lang') || 'ja');
   const heroSection = document.getElementById('top');
   function adjustHeroOffset() {
-    const bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
+    const noticeBanner = document.getElementById('notice-banner');
+    const noticeH = (noticeBanner && noticeBanner.style.display !== 'none') ? noticeBanner.offsetHeight : 0;
+    const bannerH  = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
     const isMobile = window.innerWidth <= 600;
-    heroSection.style.paddingTop = (isMobile ? 0 : bannerH) + 'px';
+    heroSection.style.paddingTop = (isMobile ? 0 : (noticeH + bannerH)) + 'px';
   }
   adjustHeroOffset();
   window.addEventListener('resize', adjustHeroOffset);
