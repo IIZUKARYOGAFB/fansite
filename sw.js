@@ -1,4 +1,4 @@
-const CACHE = 'ryoga-fansite-v1';
+const CACHE = 'ryoga-fansite-v2';
 const ASSETS = [
   '/fansite/',
   '/fansite/index.html',
