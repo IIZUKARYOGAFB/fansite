@@ -1,4 +1,4 @@
-const CACHE = 'ryoga-fansite-v2';
+const CACHE = 'ryoga-fansite-v3';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
