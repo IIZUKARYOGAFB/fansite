@@ -2745,6 +2745,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       plugins: [debutLinePlugin]
     });
   }
+  // ===== Gallery Twitter embed 強制再読み込み =====
+window.addEventListener('load', () => {
+  if (window.twttr && window.twttr.widgets) {
+    window.twttr.widgets.load(document.getElementById('galleryGrid') || document.body);
+  }
+});
 </script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
