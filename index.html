@@ -1899,7 +1899,7 @@
           FULL CLEAR シェア🔥
         </button>
       </div>
-      <div class="mission-btn-note" data-i18n="mission.btnNote">タップで画像ダウンロード＋X投稿画面が開きます</div>
+      <div class="mission-btn-note" data-i18n="mission.btnNote">タップするとX投稿画面が開きます</div>
 
     </div>
   </div>
@@ -2352,7 +2352,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'sns.marshmallowDesc':   'ご意見・お問い合わせはXのDMまたはこちらにお送りください',
       'sns.marshmallowAction': '送る',
       'footer.note':    'このサイトは有志ファンが運営する非公式ファンサイトです。<br>PRODUCE 101 JAPAN 新世界 および 飯塚亮賀くんの公式サイトではありません。<br>掲載内容に関するお問い合わせは <a href="#">こちら</a>',
-      'mission.btnNote': 'タップで画像ダウンロード＋X投稿画面が開きます',
+      'mission.btnNote': 'タップするとX投稿画面が開きます',
       'gallery.sub':  'ファン制作 布教画像ギャラリー',
       'gallery.desc': '飯塚亮賀くんを応援するファンの方々に制作いただいた布教画像です。<br><br>本画像は、りょがサポの皆さまの布教活動の一環としてご自由に使用いただけます。<br><strong>加工やトリミングはご遠慮頂き、良識の範囲内でご利用ください⚽️🔥</strong>',
       'sns.onePickName': 'りょがサポ コアサポーターズ',
@@ -2460,7 +2460,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'sns.marshmallowDesc':   'X DM 또는 마시멜로로 의견·문의를 보내주세요',
       'sns.marshmallowAction': '보내기',
       'footer.note': '이 사이트는 유지 팬이 운영하는 비공식 팬사이트입니다.<br>PRODUCE 101 JAPAN 신세계 및 이이즈카 료가의 공식 사이트가 아닙니다.<br>문의는 <a href="#">여기</a>',
-      'mission.btnNote': '탭으로 이미지 다운로드＋X 게시 화면이 열립니다',
+      'mission.btnNote': '탭하면 X 게시 화면이 열립니다',
       'gallery.sub':  '팬 제작 포교 이미지 갤러리',
       'gallery.desc': '이이즈카 료가를 응원하는 팬들이 제작한 포교 이미지입니다.<br><br>본 이미지는 팬 여러분의 포교 활동에 자유롭게 사용하실 수 있습니다.<br><strong>가공 및 트리밍은 삼가 주시고, 양식의 범위 내에서 이용해 주세요⚽️🔥</strong>',
       'sns.onePickName': 'りょがサポ 코어 서포터즈',
@@ -2568,7 +2568,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'sns.marshmallowDesc':   'Send us your questions or feedback via X DM or Marshmallow',
       'sns.marshmallowAction': 'Send',
       'footer.note': 'This is an unofficial fan site run by volunteer fans.<br>This is not the official site of PRODUCE 101 JAPAN SHINSEKAI or Ryoga Iizuka.<br>Contact: <a href="#">here</a>',
-      'mission.btnNote': 'Tap to download image and open X post screen',
+      'mission.btnNote': 'Tap to open X post screen',
       'gallery.sub':  'Fan-Made Spread Images Gallery',
       'gallery.desc': 'These images were created by fans to support Ryoga Iizuka.<br><br>Feel free to use them for fan activities and promotion.<br><strong>Please do not edit or crop the images, and use them responsibly⚽️🔥</strong>',
       'sns.onePickName': 'Ryoga Sapo Core Supporters',
@@ -2676,7 +2676,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'sns.marshmallowDesc':   '欢迎通过X的DM或Marshmallow发送意见和咨询',
       'sns.marshmallowAction': '发送',
       'footer.note': '本站为粉丝自发运营的非官方粉丝网站。<br>非PRODUCE 101 JAPAN新世界及饭冢亮贺的官方网站。<br>联系：<a href="#">这里</a>',
-      'mission.btnNote': '点击下载图片并打开X发帖界面',
+      'mission.btnNote': '点击打开X发帖界面',
       'gallery.sub':  '粉丝制作安利图集',
       'gallery.desc': '这些是支持饭冢亮贺的粉丝们制作的安利图片。<br><br>欢迎在粉丝活动中自由使用这些图片进行推广。<br><strong>请勿加工或裁剪图片，请在合理范围内使用⚽️🔥</strong>',
       'sns.onePickName': 'りょがサポ 核心应援团',
@@ -3010,34 +3010,10 @@ window.addEventListener('load', () => {
         : '◤ #りょがサポアシストミッション ◢\n＼ 本日のメインミッション達成 ✔️ ／\n明日も #飯塚亮賀 くんを全力応援⚽️🔥';
 
       const xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(mainText);
-
-      // canvas生成してダウンロード
-      const missionWrap = document.querySelector('.mission-wrap');
-      if (!missionWrap) { window.open(xUrl, '_blank'); return; }
-
-      // html2canvasが読み込まれていれば画像生成
-      if (typeof html2canvas !== 'undefined') {
-        html2canvas(missionWrap, {
-          backgroundColor: '#040810',
-          scale: 2,
-          useCORS: true,
-          logging: false
-        }).then(function(canvas) {
-          const a = document.createElement('a');
-          a.href = canvas.toDataURL('image/png');
-          a.download = 'ryoga_mission_' + dateStr.replace(/\./g, '-') + '.png';
-          a.click();
-          setTimeout(function() { window.open(xUrl, '_blank'); }, 600);
-        }).catch(function() {
-          window.open(xUrl, '_blank');
-        });
-      } else {
-        window.open(xUrl, '_blank');
-      }
+      window.open(xUrl, '_blank');
     };
   })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
