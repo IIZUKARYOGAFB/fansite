@@ -498,6 +498,35 @@
   .gallery-post { background: var(--panel); border: 1px solid var(--border); overflow: hidden; min-height: 200px; }
   @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
 
+  /* ===== GALLERY PRINT MATERIALS ===== */
+  .gallery-material-block { margin-bottom: 56px; }
+  .gallery-material-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .gallery-material-icon { font-size: 1.2rem; }
+  .gallery-material-title { font-family: var(--font-en); font-size: 1rem; letter-spacing: 4px; color: var(--white); font-weight: 700; }
+  .gallery-material-note { font-family: var(--font-sub); font-size: 0.68rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+  .gallery-material-note::before { content: ''; display: inline-block; width: 16px; height: 1px; background: var(--gold); }
+  .gallery-material-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.8; margin-bottom: 20px; border-left: 2px solid var(--blue-dark); padding-left: 12px; }
+  .gallery-material-grid { display: grid; gap: 12px; }
+  .gallery-material-grid.col2 { grid-template-columns: repeat(2, 1fr); }
+  .gallery-material-grid.col3 { grid-template-columns: repeat(3, 1fr); }
+  .gallery-img-card { position: relative; background: var(--panel); border: 1px solid var(--border); overflow: hidden; cursor: zoom-in; transition: border-color 0.2s; }
+  .gallery-img-card:hover { border-color: rgba(0,180,255,0.4); }
+  .gallery-img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-img-card.portrait { aspect-ratio: 3/4; }
+  .gallery-img-card.square { aspect-ratio: 1/1; }
+  .gallery-img-badge { position: absolute; bottom: 8px; left: 8px; font-family: var(--font-sub); font-size: 0.6rem; letter-spacing: 2px; font-weight: 700; background: rgba(4,8,16,0.8); color: var(--gray); padding: 3px 8px; border: 1px solid var(--border); }
+  .gallery-img-badge.sample { color: var(--blue); border-color: var(--blue); }
+  .gallery-download-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .gallery-dl-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sub); font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-decoration: none; padding: 9px 18px; border: 1px solid var(--border); color: var(--white); background: var(--panel); transition: all 0.2s; clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%); }
+  .gallery-dl-btn:hover { border-color: var(--blue); color: var(--blue); background: rgba(0,180,255,0.07); }
+  .gallery-dl-btn svg { flex-shrink: 0; }
+  .gallery-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; position: relative; }
+  .gallery-divider::after { content: 'FAN GALLERY'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--bg); padding: 0 16px; font-family: var(--font-sub); font-size: 0.62rem; letter-spacing: 4px; color: var(--gray); }
+  @media (max-width: 600px) {
+    .gallery-material-grid.col2 { grid-template-columns: 1fr 1fr; }
+    .gallery-material-grid.col3 { grid-template-columns: 1fr 1fr; }
+  }
+
   /* ===== CONTENTS ===== */
   #contents { background: var(--bg); }
   #contents::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--blue), transparent); }
@@ -1651,21 +1680,21 @@
 
       <div class="gallery-post">
         <blockquote class="twitter-tweet" data-width="550" data-dnt="true" data-theme="dark" data-conversation="none">
-          <a href="https://x.com/FD_RYOGA_JP/status/2042178447762665743?s=20">投稿を読み込み中...</a>
+          <a href="https://twitter.com/FD_RYOGA_JP/status/2042178447762665743?s=20">投稿を読み込み中...</a>
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
 
       <div class="gallery-post">
         <blockquote class="twitter-tweet" data-width="550" data-dnt="true" data-theme="dark" data-conversation="none">
-          <a href="https://x.com/FD_RYOGA_JP/status/2042188272265212216?s=20">投稿を読み込み中...</a>
+          <a href="https://twitter.com/FD_RYOGA_JP/status/2042188272265212216?s=20">投稿を読み込み中...</a>
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
 
       <div class="gallery-post">
         <blockquote class="twitter-tweet" data-width="550" data-dnt="true" data-theme="dark" data-conversation="none">
-          <a href="https://x.com/FD_RYOGA_JP/status/2042528030061662341?s=20">投稿を読み込み中...</a>
+          <a href="https://twitter.com/FD_RYOGA_JP/status/2042528030061662341?s=20">投稿を読み込み中...</a>
         </blockquote>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
@@ -2487,6 +2516,16 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'mission.desc': '毎日、亮賀くんの応援ミッションに挑戦しよう！<br>ミッション達成をシェアすると「今日の亮賀くんの一言」が見れます♪',
       'gallery.sub':  'ファン制作 布教画像ギャラリー',
       'gallery.desc': '飯塚亮賀くんを応援するファンの方々に制作いただいた布教画像です。<br><br>本画像は、りょがサポの皆さまの布教活動の一環としてご自由に使用いただけます。<br><strong>加工やトリミングはご遠慮頂き、良識の範囲内でご利用ください⚽️🔥</strong>',
+      'mat.flyerTitle': 'SUPPORT FLYER',
+      'mat.flyerNote':  'A4サイズ印刷推奨',
+      'mat.flyerDesc':  '亮賀くんの応援フライヤーです。A4サイズでの印刷を推奨しています。<br>良識の範囲内でご自由にご使用ください。',
+      'mat.smpTitle':   'SMARTPHONE SUPPORT MATERIAL',
+      'mat.smpNote':    'L版サイズ印刷推奨',
+      'mat.smpDesc':    'スマホサイズの応援素材です。L版サイズでの印刷を推奨しています。<br>良識の範囲内でご自由にご使用ください。',
+      'mat.iconTitle':  'ICON FRAME',
+      'mat.iconDesc':   '飯塚亮賀くん応援用のXアイコンフレームです。<br>下記よりダウンロードしてご利用ください。',
+      'mat.dlGiga':     'ギガファイル便',
+      'mat.dlDecotter': 'icondecotter',
       'sns.onePickName': 'りょがサポ コアサポーターズ',
       'sns.onePickDesc': '飯塚亮賀くん1Pick専用OCです。参加には飯塚亮賀くん1PickとわかるXアカウントのIDが必要となります。',
       'ranking.eyebrow':    'CURRENT RANKING',
@@ -2599,6 +2638,16 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'mission.desc': '매일 료가의 응원 미션에 도전하자！<br>미션 달성을 공유하면 「오늘의 료가의 한마디」를 볼 수 있어요♪',
       'gallery.sub':  '팬 제작 포교 이미지 갤러리',
       'gallery.desc': '이이즈카 료가를 응원하는 팬들이 제작한 포교 이미지입니다.<br><br>본 이미지는 팬 여러분의 포교 활동에 자유롭게 사용하실 수 있습니다.<br><strong>가공 및 트리밍은 삼가 주시고, 양식의 범위 내에서 이용해 주세요⚽️🔥</strong>',
+      'mat.flyerTitle': 'SUPPORT FLYER',
+      'mat.flyerNote':  'A4 사이즈 인쇄 권장',
+      'mat.flyerDesc':  '료가의 응원 플라이어입니다. A4 사이즈 인쇄를 권장합니다.<br>양식의 범위 내에서 자유롭게 사용해 주세요.',
+      'mat.smpTitle':   'SMARTPHONE SUPPORT MATERIAL',
+      'mat.smpNote':    'L판 사이즈 인쇄 권장',
+      'mat.smpDesc':    '스마트폰 사이즈의 응원 소재입니다. L판 사이즈 인쇄를 권장합니다.<br>양식의 범위 내에서 자유롭게 사용해 주세요.',
+      'mat.iconTitle':  'ICON FRAME',
+      'mat.iconDesc':   '이이즈카 료가 응원용 X 아이콘 프레임입니다.<br>아래에서 다운로드하여 사용해 주세요.',
+      'mat.dlGiga':     'ギガファイル便',
+      'mat.dlDecotter': 'icondecotter',
       'sns.onePickName': 'りょがサポ 코어 서포터즈',
       'sns.onePickDesc': '이이즈카 료가 1Pick 전용 OC입니다. 참가에는 이이즈카 료가 1Pick임을 알 수 있는 X 계정 ID가 필요합니다.',
       'ranking.eyebrow':    'CURRENT RANKING',
@@ -2711,6 +2760,16 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'mission.desc': 'Take on Ryoga\'s daily support mission！<br>Share your mission completion to reveal "Ryoga\'s quote of the day"♪',
       'gallery.sub':  'Fan-Made Spread Images Gallery',
       'gallery.desc': 'These images were created by fans to support Ryoga Iizuka.<br><br>Feel free to use them for fan activities and promotion.<br><strong>Please do not edit or crop the images, and use them responsibly⚽️🔥</strong>',
+      'mat.flyerTitle': 'SUPPORT FLYER',
+      'mat.flyerNote':  'Recommended: A4 print size',
+      'mat.flyerDesc':  'Support flyers for Ryoga. A4 size printing is recommended.<br>Feel free to use within reasonable limits.',
+      'mat.smpTitle':   'SMARTPHONE SUPPORT MATERIAL',
+      'mat.smpNote':    'Recommended: L-size print',
+      'mat.smpDesc':    'Smartphone-sized support materials. L-size printing is recommended.<br>Feel free to use within reasonable limits.',
+      'mat.iconTitle':  'ICON FRAME',
+      'mat.iconDesc':   'An X icon frame for supporting Ryoga Iizuka.<br>Download via the links below.',
+      'mat.dlGiga':     'Gigafile (JP)',
+      'mat.dlDecotter': 'icondecotter',
       'sns.onePickName': 'Ryoga Sapo Core Supporters',
       'sns.onePickDesc': 'This is a 1Pick-only OpenChat for Ryoga Iizuka fans. An X account ID showing you are a Ryoga 1Pick fan is required to join.',
       'ranking.eyebrow':    'CURRENT RANKING',
@@ -2823,6 +2882,16 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'mission.desc': '每天挑战亮贺的应援任务！<br>分享任务达成后即可看到「今日亮贺的一句话」♪',
       'gallery.sub':  '粉丝制作安利图集',
       'gallery.desc': '这些是支持饭冢亮贺的粉丝们制作的安利图片。<br><br>欢迎在粉丝活动中自由使用这些图片进行推广。<br><strong>请勿加工或裁剪图片，请在合理范围内使用⚽️🔥</strong>',
+      'mat.flyerTitle': 'SUPPORT FLYER',
+      'mat.flyerNote':  '推荐A4尺寸打印',
+      'mat.flyerDesc':  '亮贺的应援传单。推荐使用A4尺寸打印。<br>请在合理范围内自由使用。',
+      'mat.smpTitle':   'SMARTPHONE SUPPORT MATERIAL',
+      'mat.smpNote':    '推荐L版尺寸打印',
+      'mat.smpDesc':    '智能手机尺寸的应援素材。推荐使用L版尺寸打印。<br>请在合理范围内自由使用。',
+      'mat.iconTitle':  'ICON FRAME',
+      'mat.iconDesc':   '用于应援饭冢亮贺的X头像框。<br>请通过以下链接下载使用。',
+      'mat.dlGiga':     'ギガファイル便',
+      'mat.dlDecotter': 'icondecotter',
       'sns.onePickName': 'りょがサポ 核心应援团',
       'sns.onePickDesc': '这是仅限饭冢亮贺1Pick粉丝的开放聊天室。参加需要提供能证明您是饭冢亮贺1Pick的X账号ID。',
       'ranking.eyebrow':    'CURRENT RANKING',
