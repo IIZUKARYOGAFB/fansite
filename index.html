@@ -36,7 +36,7 @@
 <meta name="twitter:image" content="https://iizukaryogafb.github.io/fansite/images/ogp.jpg">
   
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700;900&family=Rajdhani:wght@600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #040810;
@@ -750,6 +750,212 @@
   .mission-btn-note { font-family: var(--font-sub); font-size: 0.62rem; letter-spacing: 1px; color: var(--gray); text-align: center; margin-top: 10px; }
   @media (max-width: 480px) { .mission-btn-row { grid-template-columns: 1fr; } }
 
+  /* ════════════════════════════════════════════════════════════════
+     ✦ BRUSH-UP LAYER v2 ✦
+     既存のアニメ調デザインを維持しつつ、
+     タイポグラフィ・モーション・質感を洗練
+     ════════════════════════════════════════════════════════════════ */
+  :root {
+    --font-display: 'Orbitron', 'Bebas Neue', sans-serif;
+    --blue-deep: #001c3d;
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 40px rgba(0, 180, 255, 0.15);
+  }
+
+  /* 背景に微細なノイズテクスチャを重ねて質感UP */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: 0.035; mix-blend-mode: overlay;
+  }
+  body > * { position: relative; z-index: 2; }
+
+  /* ───── セクションタイトル：ディスプレイ感アップ ───── */
+  .section-title {
+    font-feature-settings: "tnum";
+    background: linear-gradient(180deg, var(--white) 0%, var(--white) 55%, rgba(0,180,255,0.55) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 20px rgba(0, 180, 255, 0.15));
+    transition: filter 0.4s ease;
+  }
+  .section-title::after {
+    filter: blur(0.5px);
+    animation: titleShift 6s ease-in-out infinite;
+  }
+  @keyframes titleShift {
+    0%, 100% { transform: translate(0, 0); opacity: 0.18; }
+    50%      { transform: translate(3px, -1px); opacity: 0.32; }
+  }
+  .section-head:hover .section-title { filter: drop-shadow(0 2px 30px rgba(0, 180, 255, 0.35)); }
+
+  /* セクション番号の装飾強化 */
+  .section-num {
+    font-family: var(--font-display); font-weight: 500;
+    position: relative; padding-left: 14px;
+  }
+  .section-num::before {
+    content: '◢'; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%); color: var(--gold);
+    font-size: 0.6rem; animation: blink 2s ease-in-out infinite;
+  }
+
+  /* ───── ヒーロー：名前にディスプレイフォント感を ───── */
+  .hero-name-en {
+    font-family: var(--font-en);
+    background: linear-gradient(180deg, var(--white) 0%, #c7e4ff 60%, var(--blue) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(0, 180, 255, 0.3));
+  }
+  .hero-big-num {
+    font-family: var(--font-display); font-weight: 900;
+    letter-spacing: -0.05em;
+  }
+
+  /* ───── ボタン：ホバーの質感精緻化 ───── */
+  .btn-primary, .vote-btn, .vpb-btn {
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before, .vote-btn::before, .vpb-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+    transform: translateX(-120%); transition: transform 0.55s ease;
+    pointer-events: none;
+  }
+  .btn-primary:hover::before, .vote-btn:hover::before, .vpb-btn:hover::before {
+    transform: translateX(120%);
+  }
+
+  /* ───── カード系：微細な浮き上がり ───── */
+  .sns-card, .mission-block, .gallery-img-card,
+  .twitter-embed-wrap, .share-btn, .gallery-post {
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1),
+                border-color 0.25s ease,
+                box-shadow 0.35s ease;
+  }
+  .sns-card:hover, .share-btn:hover, .gallery-img-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft), 0 0 0 1px rgba(0,180,255,0.35);
+  }
+
+  /* ───── STORY エピソードの番号をよりドラマチックに ───── */
+  .ep-num {
+    font-family: var(--font-display); font-weight: 900;
+    letter-spacing: -0.08em; opacity: 0.08;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .story-ep-body:hover .ep-num {
+    opacity: 0.25; transform: scale(1.08) rotate(-3deg);
+  }
+  .ep-tag {
+    font-family: var(--font-display); font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  /* ───── RANKINGの順位に光彩 ───── */
+  .rank-num {
+    font-family: var(--font-display); font-weight: 900;
+    text-shadow: 0 0 40px rgba(0,180,255,0.45);
+    animation: rankGlow 3s ease-in-out infinite;
+  }
+  @keyframes rankGlow {
+    0%, 100% { text-shadow: 0 0 30px rgba(0,180,255,0.35); }
+    50%      { text-shadow: 0 0 50px rgba(0,180,255,0.7); }
+  }
+
+  /* ───── MISSION：タイトルに強調感 ───── */
+  #mission .section-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-style: normal !important;
+    background: linear-gradient(180deg, var(--white) 0%, var(--blue-glow) 50%, var(--gold) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 6px !important;
+  }
+
+  /* ミッションチェックボックスのチェック時フィードバック */
+  .mission-item { transition: background 0.25s ease, padding-left 0.25s ease; }
+  .mission-item:hover { background: rgba(0,180,255,0.04); padding-left: 6px; }
+  .mission-item.m-done .m-checkbox { animation: checkPop 0.35s ease; }
+  @keyframes checkPop {
+    0%  { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100%{ transform: scale(1); }
+  }
+
+  /* ───── ロゴ：ホバー時のアクセント ───── */
+  .logo {
+    font-family: var(--font-display); font-weight: 700;
+    letter-spacing: 3px; transition: letter-spacing 0.3s ease;
+  }
+  .logo:hover { letter-spacing: 5px; }
+  .logo span { transition: color 0.3s ease, text-shadow 0.3s ease; }
+  .logo:hover span { text-shadow: 0 0 16px rgba(0,180,255,0.8); }
+
+  /* ───── ナビのアクティブインジケーター ───── */
+  .nav-desktop a {
+    position: relative;
+    font-family: var(--font-display); font-weight: 500;
+  }
+  .nav-desktop a::after {
+    content: ''; position: absolute; left: 50%; bottom: -2px;
+    width: 0; height: 1px; background: var(--blue);
+    transform: translateX(-50%); transition: width 0.3s ease;
+  }
+  .nav-desktop a:hover::after, .nav-desktop a.active::after { width: 70%; }
+
+  /* ───── 画像ホバーでわずかにズーム ───── */
+  .gallery-img-card img,
+  .hero-img-inner img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .gallery-img-card:hover img { transform: scale(1.04); }
+
+  /* ───── 境界線の精緻化：コーナーマーク ───── */
+  .ouen-panel, .mission-block {
+    position: relative;
+  }
+  .ouen-panel::after, .mission-block::after {
+    content: ''; position: absolute; right: 0; bottom: 0;
+    width: 14px; height: 14px;
+    border-right: 1px solid var(--blue);
+    border-bottom: 1px solid var(--blue);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* ───── REVEAL アニメーション強化：より滑らかに ───── */
+  .reveal {
+    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.25, 1),
+                transform 0.9s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+  }
+
+  /* ───── スクロールバーを太く、グラデ入り ───── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--blue), var(--blue-dark));
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--blue-glow), var(--blue));
+  }
+
+  /* ───── セレクション色 ───── */
+  ::selection { background: var(--blue); color: var(--bg); }
+
+  /* ───── フッターロゴも強化 ───── */
+  .footer-logo {
+    font-family: var(--font-display); font-weight: 700;
+  }
+
+  /* ───── モバイル調整 ───── */
+  @media (max-width: 600px) {
+    .section-title { letter-spacing: 4px; }
+    body::before { opacity: 0.025; }
+  }
+
   /* ===== MISC ===== */
   .diamond-divider { display: flex; align-items: center; gap: 12px; margin: 40px 0; }
   .diamond-divider::before, .diamond-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -911,7 +1117,7 @@
 -->
   
 <!-- 投票期間バナー ／ display:block=表示 / display:none=非表示 -->
-<div id="vote-period-banner" style="display:block;">
+<div id="vote-period-banner" style="display:none;">
   <div class="vpb-inner">
     <div class="vpb-left">
       <div class="vpb-badge">VOTING OPEN</div>
