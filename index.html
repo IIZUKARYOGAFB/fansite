@@ -600,6 +600,30 @@
 .collab-step:last-child { border-bottom: none; }
 .collab-step-num { flex-shrink: 0; font-family: var(--font-en); font-size: 0.85rem; color: var(--blue); font-weight: 700; min-width: 20px; }
 
+/* ─── 他グループコラボ専用（拡張版カード） ─── */
+.gcollab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.gcollab-card { background: var(--panel); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s; }
+.gcollab-card:hover { border-color: rgba(0,180,255,0.5); }
+.gcollab-img { position: relative; aspect-ratio: 4/5; background: #0a1525; overflow: hidden; cursor: zoom-in; }
+.gcollab-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.gcollab-img:hover img { transform: scale(1.04); }
+.gcollab-body { padding: 18px 22px 22px; }
+.gcollab-our-period { font-family: var(--font-sub); font-size: 0.68rem; letter-spacing: 3px; color: var(--gold); margin-bottom: 6px; }
+.gcollab-title { font-family: var(--font-jp); font-size: 1rem; font-weight: 900; color: var(--white); margin-bottom: 16px; line-height: 1.5; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+
+/* 強調ハイライトボックス */
+.gcollab-highlight { background: linear-gradient(135deg, rgba(0,180,255,0.08), rgba(245,196,0,0.05)); border-left: 3px solid var(--gold); padding: 12px 16px; margin-bottom: 16px; }
+.gcollab-highlight-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.gcollab-highlight-row:last-child { margin-bottom: 0; }
+.gcollab-highlight-label { flex-shrink: 0; font-family: var(--font-sub); font-size: 0.62rem; letter-spacing: 2px; color: var(--gold); font-weight: 700; padding: 3px 8px; border: 1px solid var(--gold); margin-top: 2px; }
+.gcollab-highlight-text { font-family: var(--font-jp); font-size: 0.88rem; color: var(--white); font-weight: 700; line-height: 1.5; }
+.gcollab-highlight-text strong { color: var(--gold); font-size: 1rem; }
+
+/* 手順タイトル */
+.gcollab-steps-label { font-family: var(--font-sub); font-size: 0.68rem; letter-spacing: 3px; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+
+@media (max-width: 800px) { .gcollab-grid { grid-template-columns: 1fr; } }
+
 /* ─── 応援広告 ─── */
 .ouen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
 .ouen-panel { background: var(--panel); border: 1px solid var(--border); padding: 28px; }
@@ -2008,14 +2032,94 @@
     </div>
 
     <!-- ══════════════════════════════════════
-         コラボ企画
+         他グループ様コラボ
+    ═══════════════════════════════════════ -->
+    <div class="proj-block reveal">
+      <div class="proj-block-head">
+        <div class="proj-block-icon">🌟</div>
+        <div>
+          <div class="proj-block-title">GROUP COLLABORATION</div>
+          <div class="proj-block-title-jp" data-i18n="proj.groupCollab">他グループ様コラボ</div>
+        </div>
+      </div>
+
+      <!-- 企画がまったくない時の表示
+      <div class="proj-coming">
+        <div class="proj-coming-label">COMING SOON...</div>
+        <div class="proj-coming-sub" data-i18n="proj.groupCollabSoon">他グループ様とのコラボ企画を準備中です。お楽しみに！</div>
+      </div>
+       -->
+
+      <!-- 企画あり時はこちらを使用（上のproj-comingをコメントアウト） -->
+      <div class="gcollab-grid">
+        <div class="gcollab-card">
+          <div class="gcollab-img zoomable">
+            <img src="images/projects/nctwish_collabo.jpeg" alt="コラボ企画画像">
+          </div>
+          <div class="gcollab-body">
+            <div class="gcollab-our-period">📅 りょがサポからのご協力期間：4月20日 〜 5月9日</div>
+            <div class="gcollab-title">NCT WISH VOTING様 コラボ企画</div>
+
+            <div class="gcollab-highlight">
+              <div class="gcollab-highlight-row">
+                <div class="gcollab-highlight-label">NCT WISH VOTING様 協力期間</div>
+                <div class="gcollab-highlight-text">第3回投票・第4回投票（ファイナル投票）</div>
+              </div>
+              <div class="gcollab-highlight-row">
+                <div class="gcollab-highlight-label">票数割合</div>
+                <div class="gcollab-highlight-text"><strong>『Ode to Love』1再生：<br>飯塚亮賀くんへの1票<br> ⇒　MAX 5,000票</strong></div>
+              </div>
+            </div>
+
+            <div class="gcollab-steps-label">▶ コラボ参加方法</div>
+            <ol class="collab-steps">
+              <li class="collab-step"><span class="collab-step-num">1️⃣</span>YouTubeで『Ode to Love』MVを検索🔍</li>
+              <li class="collab-step"><span class="collab-step-num">2️⃣</span>再生開始・終了時にスクリーンショットを撮影📱<br>⚠️トリミングせず時間がわかる状態で！</li>
+              <li class="collab-step"><span class="collab-step-num">3️⃣</span>OC内専用トークルームに毎日投稿されるスレッドに画像を投稿💬</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="gcollab-grid">
+        <div class="gcollab-card">
+          <div class="gcollab-img zoomable">
+            <img src="images/projects/riize_collabo.jpeg" alt="コラボ企画画像">
+          </div>
+          <div class="gcollab-body">
+            <div class="gcollab-our-period">📅 りょがサポからのご協力期間：6月予定</div>
+            <div class="gcollab-title">BRIIZE Voting Team様 コラボ企画</div>
+
+            <div class="gcollab-highlight">
+              <div class="gcollab-highlight-row">
+                <div class="gcollab-highlight-label">BRIIZE Voting Team様 協力期間</div>
+                <div class="gcollab-highlight-text">第2回投票〜第4回投票（ファイナル投票）</div>
+              </div>
+              <div class="gcollab-highlight-row">
+                <div class="gcollab-highlight-label">票数割合</div>
+                <div class="gcollab-highlight-text"><strong>『M COUNTDOWN』事前投票・ライブ投票 1票：<br>飯塚亮賀くんへの1票</strong></div>
+              </div>
+            </div>
+
+            <div class="gcollab-steps-label">▶ コラボ参加方法</div>
+            <ol class="collab-steps">
+              <li class="collab-step">後日ご案内予定！</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- ══════════════════════════════════════
+         練習生コラボ
     ═══════════════════════════════════════ -->
     <div class="proj-block reveal">
       <div class="proj-block-head">
         <div class="proj-block-icon">🤝</div>
         <div>
-          <div class="proj-block-title">COLLABORATION</div>
-          <div class="proj-block-title-jp" data-i18n="proj.collab">コラボ企画</div>
+          <div class="proj-block-title">TRAINEE COLLABORATION</div>
+          <div class="proj-block-title-jp" data-i18n="proj.collab">練習生コラボ</div>
         </div>
       </div>
 
@@ -2025,14 +2129,14 @@
         <!-- COLLAB CARD 1 -->
         <div class="collab-card">
           <div class="collab-img zoomable">
-            <img src="images/projects/katodaiki_collabo.png" alt="コラボ企画画像">
+            <img src="images/projects/katodaiki_collabo.jpeg" alt="コラボ企画画像">
             <div class="collab-img-placeholder">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
               COLLAB IMAGE
             </div>
           </div>
           <div class="collab-body">
-            <div class="collab-period" data-i18n="collab1.period">📅 期間：第1回投票終了まで</div>
+            <div class="collab-period" data-i18n="collab1.period">📅 期間：第2回投票終了まで</div>
             <div class="collab-title" data-i18n="collab1.title">加藤大樹くんコラボ投票企画</div>
             <ol class="collab-steps">
               <li class="collab-step"><span class="collab-step-num">1️⃣</span><span data-i18n="collab1.step1">飯塚亮賀くんと加藤大樹くんの2名に投票🗳️</span></li>
@@ -2044,17 +2148,76 @@
 
         <div class="collab-card">
           <div class="collab-img zoomable">
-            <img src="images/projects/okadayuma_collabo.png" alt="コラボ企画画像">
+            <img src="images/projects/okadayuma_collabo.jpeg" alt="コラボ企画画像">
             <div class="collab-img-placeholder">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
               COLLAB IMAGE
             </div>
           </div>
           <div class="collab-body">
-            <div class="collab-period" data-i18n="collab2.period">📅 期間：第1回投票終了まで</div>
+            <div class="collab-period" data-i18n="collab2.period">📅 期間：第2回投票終了まで</div>
             <div class="collab-title" data-i18n="collab2.title">岡田侑磨くんコラボ投票企画</div>
             <ol class="collab-steps">
-              <li class="collab-step"><span class="collab-step-num">💡</span><span data-i18n="collab2.step1">OC内で随時ご参加者様を募集中！</span></li>
+              <li class="collab-step"><span class="collab-step-num">1️⃣</span><span data-i18n="collab1.step1">飯塚亮賀くんと岡田侑磨くんの2名に投票🗳️</span></li>
+              <li class="collab-step"><span class="collab-step-num">2️⃣</span><span data-i18n="collab1.step2">投票したことがわかるスクリーンショットを撮影📱</span></li>
+              <li class="collab-step"><span class="collab-step-num">3️⃣</span><span data-i18n="collab1.step3">OCの専用トークルームからルールに沿って投票認証画像を投稿⚽️🪽</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <div class="collab-img zoomable">
+            <img src="images/projects/ohshinhaeng_collabo.png" alt="コラボ企画画像">
+            <div class="collab-img-placeholder">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+              COLLAB IMAGE
+            </div>
+          </div>
+          <div class="collab-body">
+            <div class="collab-period" data-i18n="collab2.period">📅 期間：第2回投票終了まで</div>
+            <div class="collab-title">オシンヘンくんコラボ投票企画</div>
+            <ol class="collab-steps">
+              <li class="collab-step"><span class="collab-step-num">1️⃣</span>飯塚亮賀くんとオシンヘンくんの2名に投票🗳️</li>
+              <li class="collab-step"><span class="collab-step-num">2️⃣</span>投票したことがわかるスクリーンショットを撮影📱</li>
+              <li class="collab-step"><span class="collab-step-num">3️⃣</span>DのXから毎日投稿される【コラボ投票提出ポスト】に、ハッシュタグ「#りょがわんコラボ」をつけて投票認証画像を投稿⚽️🐶</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <div class="collab-img zoomable">
+            <img src="images/projects/aonumakoshiro_collabo.png" alt="コラボ企画画像">
+            <div class="collab-img-placeholder">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+              COLLAB IMAGE
+            </div>
+          </div>
+          <div class="collab-body">
+            <div class="collab-period" data-i18n="collab2.period">📅 期間：第2回投票終了まで</div>
+            <div class="collab-title">青沼昂史朗くんコラボ投票企画</div>
+            <ol class="collab-steps">
+              <li class="collab-step"><span class="collab-step-num">1️⃣</span>飯塚亮賀くんと青沼昂史朗くんの2名に投票🗳️</li>
+              <li class="collab-step"><span class="collab-step-num">2️⃣</span>投票したことがわかるスクリーンショットを撮影📱</li>
+              <li class="collab-step"><span class="collab-step-num">3️⃣</span>OCの専用トークルームからルールに沿って投票認証画像を投稿⚽️🐻‍❄️</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <div class="collab-img zoomable">
+            <img src="images/projects/nishizakishu_collabo.png" alt="コラボ企画画像">
+            <div class="collab-img-placeholder">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+              COLLAB IMAGE
+            </div>
+          </div>
+          <div class="collab-body">
+            <div class="collab-period" data-i18n="collab2.period">📅 期間：第2回投票終了まで</div>
+            <div class="collab-title">西﨑柊くんコラボ投票企画</div>
+            <ol class="collab-steps">
+              <li class="collab-step"><span class="collab-step-num">1️⃣</span>飯塚亮賀くんと西﨑柊くんの2名に投票🗳️</li>
+              <li class="collab-step"><span class="collab-step-num">2️⃣</span>投票したことがわかるスクリーンショットを撮影📱</li>
+              <li class="collab-step"><span class="collab-step-num">3️⃣</span>OCの専用トークルームからルールに沿って投票認証画像を投稿⚽️🥁</li>
             </ol>
           </div>
         </div>
@@ -2726,7 +2889,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'contact.marshLabel': 'マシュマロで送る',
       'nav.voteBtn': '★ VOTE NOW',
       'vpb.heading': '第2回投票 開催中！🗳️',
-      'vpb.detail':  '<strong>投票期間：〜 5月7日 (金) 12:00 まで</strong><br>毎日 0:00 以降に飯塚亮賀くんへの投票が可能！<span class="highlight">1日2票</span>、毎日欠かさず投票しよう！',
+      'vpb.detail':  '<strong>投票期間：〜 5月8日 (金) 12:00 まで</strong><br>毎日 0:00 以降に飯塚亮賀くんへの投票が可能！<span class="highlight">1日2票</span>、毎日欠かさず投票しよう！',
       'vpb.btn':     '★ VOTE NOW →',
       'hero.tag':    '飯塚亮賀FD【りょがサポ】有志FANSITE',
       'hero.nameJp': '飯塚 亮賀',
@@ -2765,14 +2928,17 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'contents.liveStream':  '101DAY LIVE STREAMING<br>亮賀くんの出番は28:00〜頃から。<br>3ポーズを披露しますと言って、4ポーズも披露してくれるサービス精神旺盛な亮賀くんの姿が楽しめます。',
       'contents.arrow': '投稿を見る',
       'projects.sub': 'ファンダム企画まとめ',
-      'proj.collab': 'コラボ企画', 'proj.ad': '応援広告', 'proj.sumin': 'スミンパーティー',
-      'collab1.period': '📅 期間：第1回投票終了まで',
+      'proj.collab': '練習生コラボ', 'proj.groupCollab': '他グループ様コラボ', 'proj.groupCollabSoon': '他グループ様とのコラボ企画を準備中です。お楽しみに！', 'proj.ad': '応援広告', 'proj.sumin': 'スミンパーティー',
+      'collab1.period': '📅 期間：第2回投票終了まで',
       'collab1.title':  '加藤大樹くんコラボ投票企画',
       'collab1.step1':  '飯塚亮賀くんと加藤大樹くんの2名に投票🗳️',
       'collab1.step2':  '投票したことがわかるスクリーンショットを撮影📱',
       'collab1.step3':  'FDのXから毎日投稿される【コラボ投票提出ポスト】に、ハッシュタグ「#みどりょがコラボ投票」をつけて投票認証画像を投稿⚽️☘️',
-      'collab2.period': '📅 期間：第1回投票終了まで',
+      'collab2.period': '📅 期間：第2回投票終了まで',
       'collab2.title':  '岡田侑磨くんコラボ投票企画',
+      'collab3.title':  'オシンヘンくんコラボ投票企画',
+      'collab4.title':  '青沼昂史朗くんコラボ投票企画',
+      'collab5.title':  '西﨑柊くんコラボ投票企画',
       'collab2.step1':  'OC内で随時ご参加者様を募集中！',
       'ad.fundTitle':   '応援広告サポート募金 募集中',
       'ad.fundPeriod':  '📅 募集期間：2026年4月30日（木）まで',
@@ -2896,13 +3062,13 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'contents.liveStream':  '101DAY LIVE STREAMING<br>료가의 등장은 28:00~ 부근부터.<br>3포즈를 선보이겠다고 했는데 4포즈나 선보여준 서비스 정신 넘치는 료가의 모습을 즐겨보세요.',
       'contents.arrow': '게시물 보기',
       'projects.sub': '팬덤 기획 모음',
-      'proj.collab': '콜라보 기획', 'proj.ad': '응원 광고', 'proj.sumin': '스트리밍 파티',
-      'collab1.period': '📅 기간：제1회 투표 종료까지',
+      'proj.collab': '연습생 콜라보', 'proj.groupCollab': '타 그룹 콜라보', 'proj.groupCollabSoon': '타 그룹과의 콜라보 기획을 준비 중입니다. 기대해 주세요！', 'proj.ad': '응원 광고', 'proj.sumin': '스트리밍 파티',
+      'collab1.period': '📅 기간：제2회 투표 종료까지',
       'collab1.title':  '카토 다이키 콜라보 투표 기획',
       'collab1.step1':  '이이즈카 료가와 카토 다이키 2명에게 투표🗳️',
       'collab1.step2':  '투표한 것을 알 수 있는 스크린샷 촬영📱',
       'collab1.step3':  'FD X에서 매일 게시되는 【콜라보 투표 제출 포스트】에 해시태그 「#みどりょがコラボ投票」를 붙여 투표 인증 이미지 게시⚽️☘️',
-      'collab2.period': '📅 기간：제1회 투표 종료까지',
+      'collab2.period': '📅 기간：제2회 투표 종료까지',
       'collab2.title':  '오카다 유마 콜라보 투표 기획',
       'collab2.step1':  'OC에서 수시로 참가자 모집 중！',
       'ad.fundTitle':   '응원 광고 서포트 모금 모집 중',
@@ -3024,13 +3190,13 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'contents.liveStream':  '101DAY LIVE STREAMING<br>Ryoga appears from around 28:00.<br>He said he\'d show 3 poses — then showed 4. Catch Ryoga\'s overflowing fan-service spirit！',
       'contents.arrow': 'View post',
       'projects.sub': 'Fandom Projects',
-      'proj.collab': 'Collab Project', 'proj.ad': 'Support Ad', 'proj.sumin': 'Streaming Party',
-      'collab1.period': '📅 Period: Until Round 1 voting ends',
+      'proj.collab': 'Trainee Collaboration', 'proj.groupCollab': 'Group Collaboration', 'proj.groupCollabSoon': 'Collab projects with other groups are in preparation. Stay tuned！', 'proj.ad': 'Support Ad', 'proj.sumin': 'Streaming Party',
+      'collab1.period': '📅 Period: Until Round 2 voting ends',
       'collab1.title':  'Daiki Kato Collab Vote Project',
       'collab1.step1':  'Vote for both Ryoga Iizuka AND Daiki Kato🗳️',
       'collab1.step2':  'Take a screenshot showing you voted📱',
       'collab1.step3':  'Post your vote screenshot on the daily collab post from the FD X account with hashtag「#みどりょがコラボ投票」⚽️☘️',
-      'collab2.period': '📅 Period: Until Round 1 voting ends',
+      'collab2.period': '📅 Period: Until Round 2 voting ends',
       'collab2.title':  'Yuma Okada Collab Vote Project',
       'collab2.step1':  'Recruiting participants in the OC at any time！',
       'ad.fundTitle':   'Support Ad Fundraising Open',
@@ -3152,13 +3318,13 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'contents.liveStream':  '101DAY LIVE STREAMING<br>亮贺的出场约从28:00开始。<br>明明说了展示3个造型，却展示了4个的服务精神满满的亮贺令人爱不释手。',
       'contents.arrow': '查看帖子',
       'projects.sub': '粉丝团企划汇总',
-      'proj.collab': '联动企划', 'proj.ad': '应援广告', 'proj.sumin': '流媒体派对',
-      'collab1.period': '📅 期间：第1次投票结束前',
+      'proj.collab': '练习生联动', 'proj.groupCollab': '其他团体联动', 'proj.groupCollabSoon': '与其他团体的联动企划筹备中，敬请期待！', 'proj.ad': '应援广告', 'proj.sumin': '流媒体派对',
+      'collab1.period': '📅 期间：第2次投票结束前',
       'collab1.title':  '加藤大树联动投票企划',
       'collab1.step1':  '同时为饭冢亮贺和加藤大树2人投票🗳️',
       'collab1.step2':  '拍摄显示已投票的截图📱',
       'collab1.step3':  '在FD X每日发布的【联动投票提交帖子】上，附上话题标签「#みどりょがコラボ投票」发布投票认证图⚽️☘️',
-      'collab2.period': '📅 期间：第1次投票结束前',
+      'collab2.period': '📅 期间：第2次投票结束前',
       'collab2.title':  '冈田侑磨联动投票企划',
       'collab2.step1':  '在OC内随时招募参与者！',
       'ad.fundTitle':   '应援广告支持募款招募中',
