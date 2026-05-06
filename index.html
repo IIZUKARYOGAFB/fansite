@@ -484,9 +484,9 @@
   .yt-card-label { font-family: var(--font-sub); font-size: 0.62rem; letter-spacing: 2px; color: var(--gray); margin-bottom: 6px; line-height: 1.4; min-height: 32px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .yt-card-views { font-family: var(--font-en); font-size: 1.8rem; color: var(--white); line-height: 1.1; margin-bottom: 8px; letter-spacing: 1px; }
   .yt-card-views-unit { font-size: 0.85rem; color: var(--gray); margin-left: 2px; letter-spacing: 0; }
-  .yt-card-deltas { display: flex; gap: 14px; flex-wrap: wrap; }
-  .yt-card-delta { display: flex; flex-direction: column; gap: 2px; }
-  .yt-card-delta-label { font-family: var(--font-sub); font-size: 0.55rem; letter-spacing: 1.5px; color: var(--gray); }
+  .yt-card-deltas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .yt-card-delta { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+  .yt-card-delta-label { font-family: var(--font-sub); font-size: 0.55rem; letter-spacing: 1px; color: var(--gray); white-space: nowrap; }
   .yt-card-delta-value { font-family: var(--font-en); font-size: 0.95rem; color: var(--blue); font-weight: 700; letter-spacing: 0.5px; }
   .yt-card-delta-value::before { content: '+'; color: var(--blue); margin-right: 1px; }
   .yt-card-delta-value.zero { color: var(--gray); }
@@ -1632,6 +1632,10 @@
           </div>
           <div class="yt-card-deltas">
             <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
+              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+            </div>
+            <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
               <div class="yt-card-delta-value loading" data-delta="hour">…</div>
             </div>
@@ -1648,6 +1652,10 @@
           </div>
           <div class="yt-card-deltas">
             <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
+              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+            </div>
+            <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
               <div class="yt-card-delta-value loading" data-delta="hour">…</div>
             </div>
@@ -1663,6 +1671,10 @@
             <span class="yt-views-num">--</span><span class="yt-card-views-unit" data-i18n="ytc.views">回再生</span>
           </div>
           <div class="yt-card-deltas">
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
+              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+            </div>
             <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
               <div class="yt-card-delta-value loading" data-delta="hour">…</div>
@@ -3070,6 +3082,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':          '▶ 推しカメラ 再生回数 LIVE',
       'ytc.loading':        '読み込み中...',
       'ytc.views':          '回再生',
+      'ytc.last10min':      '直近10分',
       'ytc.lastHour':       '直近1時間',
       'ytc.last24h':        '過去24時間',
       'movie.featuredLabel':'目指せ30万回再生！',
@@ -3215,6 +3228,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ 오시카메라 재생수 LIVE',
       'ytc.loading':  '불러오는 중...',
       'ytc.views':    '회 재생',
+      'ytc.last10min': '최근 10분',
       'ytc.lastHour': '최근 1시간',
       'ytc.last24h':  '지난 24시간',
       'movie.featuredLabel': '목표 30만 재생！',
@@ -3354,6 +3368,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ Oshi Camera Views LIVE',
       'ytc.loading':  'Loading...',
       'ytc.views':    ' views',
+      'ytc.last10min': 'Last 10 min',
       'ytc.lastHour': 'Last 1 hour',
       'ytc.last24h':  'Last 24 hours',
       'movie.featuredLabel': 'Goal: 300K Views！',
@@ -3493,6 +3508,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ 推镜头 播放数 LIVE',
       'ytc.loading':  '加载中...',
       'ytc.views':    '次播放',
+      'ytc.last10min': '最近10分钟',
       'ytc.lastHour': '最近1小时',
       'ytc.last24h':  '过去24小时',
       'movie.featuredLabel': '目标30万播放！',
@@ -3844,31 +3860,27 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
         const card = document.querySelector(`[data-video-id="${v.id}"]`);
         if (!card) return;
         const numEl = card.querySelector('.yt-views-num');
+        const min10El = card.querySelector('[data-delta="min10"]');
         const hourEl = card.querySelector('[data-delta="hour"]');
         const dayEl = card.querySelector('[data-delta="day"]');
 
         if (numEl) numEl.textContent = formatYtNumber(v.views);
 
-        if (hourEl) {
-          hourEl.classList.remove('loading');
-          if (v.deltaHour > 0) {
-            hourEl.textContent = formatYtNumber(v.deltaHour);
-            hourEl.classList.remove('zero');
+        const setDelta = (el, val) => {
+          if (!el) return;
+          el.classList.remove('loading');
+          if (val > 0) {
+            el.textContent = formatYtNumber(val);
+            el.classList.remove('zero');
           } else {
-            hourEl.textContent = '0';
-            hourEl.classList.add('zero');
+            el.textContent = '0';
+            el.classList.add('zero');
           }
-        }
-        if (dayEl) {
-          dayEl.classList.remove('loading');
-          if (v.deltaDay > 0) {
-            dayEl.textContent = formatYtNumber(v.deltaDay);
-            dayEl.classList.remove('zero');
-          } else {
-            dayEl.textContent = '0';
-            dayEl.classList.add('zero');
-          }
-        }
+        };
+
+        setDelta(min10El, v.delta10min);
+        setDelta(hourEl, v.deltaHour);
+        setDelta(dayEl, v.deltaDay);
       });
     } catch (err) {
       updatedEl.textContent = '※ 一時的に取得できません';
