@@ -471,6 +471,30 @@
   .stat-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue-glow)); box-shadow: var(--glow); animation: fillBar 1.5s ease-out forwards; transform-origin: left; }
   @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+  /* ===== YOUTUBE COUNTER ===== */
+  .yt-counter-wrap { margin-bottom: 32px; }
+  .yt-counter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .yt-counter-title { font-family: var(--font-sub); font-size: 0.85rem; letter-spacing: 3px; color: var(--gold); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .yt-counter-title::before { content: ''; width: 4px; height: 14px; background: var(--gold); }
+  .yt-counter-updated { font-family: var(--font-sub); font-size: 0.65rem; letter-spacing: 1px; color: var(--gray); }
+  .yt-counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .yt-counter-card { background: var(--panel); border: 1px solid var(--border); padding: 16px 18px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+  .yt-counter-card:hover { border-color: rgba(0,180,255,0.4); }
+  .yt-counter-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--gold)); }
+  .yt-card-label { font-family: var(--font-sub); font-size: 0.62rem; letter-spacing: 2px; color: var(--gray); margin-bottom: 6px; line-height: 1.4; min-height: 32px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .yt-card-views { font-family: var(--font-en); font-size: 1.8rem; color: var(--white); line-height: 1.1; margin-bottom: 8px; letter-spacing: 1px; }
+  .yt-card-views-unit { font-size: 0.85rem; color: var(--gray); margin-left: 2px; letter-spacing: 0; }
+  .yt-card-deltas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .yt-card-delta { display: flex; flex-direction: column; gap: 2px; }
+  .yt-card-delta-label { font-family: var(--font-sub); font-size: 0.55rem; letter-spacing: 1.5px; color: var(--gray); }
+  .yt-card-delta-value { font-family: var(--font-en); font-size: 0.95rem; color: var(--blue); font-weight: 700; letter-spacing: 0.5px; }
+  .yt-card-delta-value::before { content: '+'; color: var(--blue); margin-right: 1px; }
+  .yt-card-delta-value.zero { color: var(--gray); }
+  .yt-card-delta-value.zero::before { content: ''; }
+  .yt-card-delta-value.loading { color: var(--gray); font-size: 0.7rem; letter-spacing: 1px; }
+  .yt-card-delta-value.loading::before { content: ''; }
+  @media (max-width: 800px) { .yt-counter-grid { grid-template-columns: 1fr; } }
+
   /* ===== MOVIE ===== */
   #movie { background: var(--bg2); }
   #movie::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
@@ -1086,7 +1110,6 @@
     <a href="#gallery">GALLERY</a>
     <a href="#projects">PROJECTS</a>
     <a href="#vote">VOTE</a>
-    <a href="#mission">MISSION</a>
     <a href="#community">COMMUNITY</a>
   </nav>
   <div class="header-right">
@@ -1123,7 +1146,6 @@
   <a href="#gallery" onclick="closeMobileMenu()">GALLERY</a>
   <a href="#projects" onclick="closeMobileMenu()">PROJECTS</a>
   <a href="#vote" onclick="closeMobileMenu()">VOTE</a>
-  <a href="#mission" onclick="closeMobileMenu()">MISSION</a>
   <a href="#community" onclick="closeMobileMenu()">COMMUNITY</a>
 </nav>
 
@@ -1191,7 +1213,6 @@
       <div class="hero-actions">
         <a href="#vote" class="btn-primary" data-i18n="hero.btnVote">★ 投票する</a>
         <a href="#story" class="btn-secondary" data-i18n="hero.btnStory">▶ STORYを見る</a>
-        <a href="#mission" class="btn-secondary" data-i18n="hero.btnMission" style="border-color:var(--gold);color:var(--gold);">⚽ 本日のミッションに挑戦！</a>
       </div>
     </div>
     <div class="hero-right">
@@ -1596,6 +1617,65 @@
       <div class="section-title" data-text="MOVIE">MOVIE</div>
       <div class="section-title-jp" data-i18n="movie.sub">動画アーカイブ</div>
     </div>
+
+    <!-- YouTube カウンター -->
+    <div class="yt-counter-wrap reveal">
+      <div class="yt-counter-head">
+        <div class="yt-counter-title" data-i18n="ytc.title">▶ 推しカメラ 再生回数 LIVE</div>
+        <div class="yt-counter-updated" id="ytcUpdated" data-i18n="ytc.loading">読み込み中...</div>
+      </div>
+      <div class="yt-counter-grid">
+        <div class="yt-counter-card" data-video-id="f7DrhGXmwVc">
+          <div class="yt-card-label">推しカメラ｜RYOGA<br>新世界 (SHINSEKAI)</div>
+          <div class="yt-card-views">
+            <span class="yt-views-num">--</span><span class="yt-card-views-unit" data-i18n="ytc.views">回再生</span>
+          </div>
+          <div class="yt-card-deltas">
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
+              <div class="yt-card-delta-value loading" data-delta="hour">…</div>
+            </div>
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last24h">過去24時間</div>
+              <div class="yt-card-delta-value loading" data-delta="day">…</div>
+            </div>
+          </div>
+        </div>
+        <div class="yt-counter-card" data-video-id="AjWpWo9Xn7s">
+          <div class="yt-card-label">グループバトル 推しカメラ<br>The Peak (最高到達点)</div>
+          <div class="yt-card-views">
+            <span class="yt-views-num">--</span><span class="yt-card-views-unit" data-i18n="ytc.views">回再生</span>
+          </div>
+          <div class="yt-card-deltas">
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
+              <div class="yt-card-delta-value loading" data-delta="hour">…</div>
+            </div>
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last24h">過去24時間</div>
+              <div class="yt-card-delta-value loading" data-delta="day">…</div>
+            </div>
+          </div>
+        </div>
+        <div class="yt-counter-card" data-video-id="CibpoDEFJ6Q">
+          <div class="yt-card-label">ポジション評価 推しカメラ<br>Official髭男dism『宿命』</div>
+          <div class="yt-card-views">
+            <span class="yt-views-num">--</span><span class="yt-card-views-unit" data-i18n="ytc.views">回再生</span>
+          </div>
+          <div class="yt-card-deltas">
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
+              <div class="yt-card-delta-value loading" data-delta="hour">…</div>
+            </div>
+            <div class="yt-card-delta">
+              <div class="yt-card-delta-label" data-i18n="ytc.last24h">過去24時間</div>
+              <div class="yt-card-delta-value loading" data-delta="day">…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="movie-grid">
 
       <!-- FEATURED -->
@@ -1606,7 +1686,7 @@
           <div class="play-icon"><svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="23" stroke-width="2"/><polygon points="20,15 38,25 20,35" fill="white" stroke="none"/></svg></div>
         </div>
         <div class="movie-info">
-          <div class="featured-label" data-i18n="movie.featuredLabel">目指せ25万回再生！</div>
+          <div class="featured-label" data-i18n="movie.featuredLabel">目指せ30万回再生！</div>
           <div class="movie-tag">PRODUCE 101 JAPAN 新世界</div>
           <div class="movie-title">推しカメラ｜RYOGA ( 飯塚 亮賀 )｜新世界 (SHINSEKAI)</div>
           <div class="movie-date">2026.02.22</div>
@@ -1673,6 +1753,36 @@
           <div class="movie-tag">GROUP BATTLE</div>
           <div class="movie-title">Full ver.｜▸▸ 2組 ◂◂ SEKAI NO OWARI ♫ The Peak (最高到達点)｜グループバトル</div>
           <div class="movie-date">2026.04.17</div>
+          <div class="movie-desc"> </div>
+        </div>
+      </a>
+
+      <!-- VIDEO 5 -->
+      <a href="https://youtu.be/4TiuS0SzANc?si=FGYslCd4k_GvXtQA" target="_blank" class="movie-card reveal">
+        <div class="movie-thumb">
+          <img src="images/contents/positionbattle_hilight.jpg" alt="video">
+          <div class="movie-thumb-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg></div>
+          <div class="play-icon"><svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="23" stroke-width="2"/><polygon points="20,15 38,25 20,35" fill="white" stroke="none"/></svg></div>
+        </div>
+        <div class="movie-info">
+          <div class="movie-tag">POSITION BATTLE</div>
+          <div class="movie-title"># 6 ハイライト｜Official髭男dism ♫ 宿命｜POSITION BATTLE：OPEN ROUND</div>
+          <div class="movie-date">2026.04.30</div>
+          <div class="movie-desc"> </div>
+        </div>
+      </a>
+
+      <!-- VIDEO 6 -->
+      <a href="https://youtu.be/CibpoDEFJ6Q?si=0mwDXZM8vMTTedny" target="_blank" class="movie-card reveal">
+        <div class="movie-thumb">
+          <img src="images/contents/positionbattle_focuscam.jpg" alt="video">
+          <div class="movie-thumb-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg></div>
+          <div class="play-icon"><svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="23" stroke-width="2"/><polygon points="20,15 38,25 20,35" fill="white" stroke="none"/></svg></div>
+        </div>
+        <div class="movie-info">
+          <div class="movie-tag">POSITION BATTLE</div>
+          <div class="movie-title">ポジション評価 推しカメラ｜RYOGA ( 飯塚 亮賀 )｜Official髭男dism ♫ 宿命</div>
+          <div class="movie-date">2026.05.01</div>
           <div class="movie-desc"> </div>
         </div>
       </a>
@@ -2476,7 +2586,7 @@
 </section>
 
 <!-- MISSION -->
-<section id="mission">
+<section id="mission" style="display:none;">
   <div class="section-inner">
     <div class="section-head reveal" style="text-align:center;">
       <div class="section-num">08 — DAILY MISSION</div>
@@ -2957,7 +3067,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'prof.mbti':   'INTP（論理学者）', 'prof.fanEval': '※ファンによる独自評価',
       'tag.soccer':  '⚽ サッカー好き', 'tag.otaku': '🤓 ヲタク',
       'movie.sub':          '動画アーカイブ',
-      'movie.featuredLabel':'目指せ25万回再生！',
+      'ytc.title':          '▶ 推しカメラ 再生回数 LIVE',
+      'ytc.loading':        '読み込み中...',
+      'ytc.views':          '回再生',
+      'ytc.lastHour':       '直近1時間',
+      'ytc.last24h':        '過去24時間',
+      'movie.featuredLabel':'目指せ30万回再生！',
       'movie.featuredDesc': '亮賀くんの記念すべき初の推しカメラ。テーマソング『新世界(SHINSEKAI)』を踊る亮賀くんの姿が楽しめます。<br>より多くの亮賀くんに「はじめまして」の方に届けるため、りょがサポの皆さまで日々再生を頑張りましょう！',
       'movie.card1Desc': 'Fクラスのセンターで踊る亮賀くんの姿が楽しめます！',
       'contents.sub':       '公式SNS・投稿まとめ',
@@ -3097,7 +3212,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'prof.mbti': 'INTP（논리학자）', 'prof.fanEval': '※팬의 자체 평가',
       'tag.soccer': '⚽ 축구 좋아', 'tag.otaku': '🤓 오타쿠',
       'movie.sub': '영상 아카이브',
-      'movie.featuredLabel': '목표 25만 재생！',
+      'ytc.title':    '▶ 오시카메라 재생수 LIVE',
+      'ytc.loading':  '불러오는 중...',
+      'ytc.views':    '회 재생',
+      'ytc.lastHour': '최근 1시간',
+      'ytc.last24h':  '지난 24시간',
+      'movie.featuredLabel': '목표 30만 재생！',
       'movie.featuredDesc':  '료가의 기념할 첫 오시카메라. 테마송 『신세계(SHINSEKAI)』를 추는 료가를 즐겨보세요.<br>더 많은 분들에게 료가를 알리기 위해 팬 여러분 함께 매일 재생을 부탁드려요！',
       'movie.card1Desc': 'F클래스 센터로 춤추는 료가의 모습을 즐겨보세요！',
       'contents.sub': '공식 SNS·게시물 모음',
@@ -3231,7 +3351,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'prof.mbti': 'INTP (Logician)', 'prof.fanEval': '※ Fan-made evaluation',
       'tag.soccer': '⚽ Soccer Lover', 'tag.otaku': '🤓 Anime Otaku',
       'movie.sub': 'Video Archive',
-      'movie.featuredLabel': 'Goal: 250K Views！',
+      'ytc.title':    '▶ Oshi Camera Views LIVE',
+      'ytc.loading':  'Loading...',
+      'ytc.views':    ' views',
+      'ytc.lastHour': 'Last 1 hour',
+      'ytc.last24h':  'Last 24 hours',
+      'movie.featuredLabel': 'Goal: 300K Views！',
       'movie.featuredDesc':  'Ryoga\'s first-ever Oshi Camera. Watch him dance to the theme song "SHINSEKAI".<br>Help spread Ryoga to new fans — let\'s keep playing it every day！',
       'movie.card1Desc': 'Watch Ryoga dance as center of Class F！',
       'contents.sub': 'Official SNS Posts',
@@ -3365,7 +3490,12 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'prof.mbti': 'INTP（逻辑学家）', 'prof.fanEval': '※粉丝自制评价',
       'tag.soccer': '⚽ 足球爱好者', 'tag.otaku': '🤓 动漫宅',
       'movie.sub': '视频合集',
-      'movie.featuredLabel': '目标25万播放！',
+      'ytc.title':    '▶ 推镜头 播放数 LIVE',
+      'ytc.loading':  '加载中...',
+      'ytc.views':    '次播放',
+      'ytc.lastHour': '最近1小时',
+      'ytc.last24h':  '过去24小时',
+      'movie.featuredLabel': '目标30万播放！',
       'movie.featuredDesc':  '亮贺值得纪念的第一个推镜头。欣赏他随主题曲「新世界(SHINSEKAI)」起舞的姿态。<br>为了让更多人认识亮贺，请粉丝们每天坚持播放！',
       'movie.card1Desc': '欣赏在F班担任中心起舞的亮贺！',
       'contents.sub': '官方SNS·帖子汇总',
@@ -3679,6 +3809,76 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       plugins: [debutLinePlugin]
     });
   }
+  // ===== YouTube カウンター =====
+  // バックエンドAPIのURL（Cloudflare Workersなどで構築する想定）
+  // 例: https://your-worker.workers.dev/api/youtube-stats
+  // 各動画の {videoId, viewCount, deltaHour, deltaDay} を返すJSON想定
+  const YT_API_URL = 'https://ryoga-yt-counter.ryogasapo.workers.dev/api/youtube-stats'; // ★ バックエンド構築後にURLを差し替え
+
+  function formatYtNumber(num) {
+    return num.toLocaleString('en-US');
+  }
+
+  async function fetchYtStats() {
+    const updatedEl = document.getElementById('ytcUpdated');
+    if (!updatedEl) return;
+
+    // バックエンドが未構築の場合はサンプル表示
+    if (YT_API_URL === 'YOUR_BACKEND_API_URL') {
+      updatedEl.textContent = '※ バックエンド構築後に有効化されます';
+      return;
+    }
+
+    try {
+      const res = await fetch(YT_API_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      // data = { updatedAt: 'ISO', videos: [{ id, views, deltaHour, deltaDay }] }
+
+      const updatedDate = new Date(data.updatedAt);
+      const hh = String(updatedDate.getHours()).padStart(2,'0');
+      const mm = String(updatedDate.getMinutes()).padStart(2,'0');
+      updatedEl.textContent = `最終更新: ${hh}:${mm}`;
+
+      data.videos.forEach(v => {
+        const card = document.querySelector(`[data-video-id="${v.id}"]`);
+        if (!card) return;
+        const numEl = card.querySelector('.yt-views-num');
+        const hourEl = card.querySelector('[data-delta="hour"]');
+        const dayEl = card.querySelector('[data-delta="day"]');
+
+        if (numEl) numEl.textContent = formatYtNumber(v.views);
+
+        if (hourEl) {
+          hourEl.classList.remove('loading');
+          if (v.deltaHour > 0) {
+            hourEl.textContent = formatYtNumber(v.deltaHour);
+            hourEl.classList.remove('zero');
+          } else {
+            hourEl.textContent = '0';
+            hourEl.classList.add('zero');
+          }
+        }
+        if (dayEl) {
+          dayEl.classList.remove('loading');
+          if (v.deltaDay > 0) {
+            dayEl.textContent = formatYtNumber(v.deltaDay);
+            dayEl.classList.remove('zero');
+          } else {
+            dayEl.textContent = '0';
+            dayEl.classList.add('zero');
+          }
+        }
+      });
+    } catch (err) {
+      updatedEl.textContent = '※ 一時的に取得できません';
+    }
+  }
+
+  // 初回ロード + 5分ごとに更新
+  fetchYtStats();
+  setInterval(fetchYtStats, 5 * 60 * 1000);
+
   // ===== Gallery Twitter embed 強制再読み込み =====
 window.addEventListener('load', () => {
   if (window.twttr && window.twttr.widgets) {
