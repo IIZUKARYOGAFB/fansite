@@ -1641,8 +1641,8 @@
           </div>
           <div class="yt-card-deltas">
             <div class="yt-card-delta">
-              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
-              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+              <div class="yt-card-delta-label" data-i18n="ytc.last30min">直近30分</div>
+              <div class="yt-card-delta-value loading" data-delta="min30">…</div>
             </div>
             <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
@@ -1661,8 +1661,8 @@
           </div>
           <div class="yt-card-deltas">
             <div class="yt-card-delta">
-              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
-              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+              <div class="yt-card-delta-label" data-i18n="ytc.last30min">直近30分</div>
+              <div class="yt-card-delta-value loading" data-delta="min30">…</div>
             </div>
             <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
@@ -1681,8 +1681,8 @@
           </div>
           <div class="yt-card-deltas">
             <div class="yt-card-delta">
-              <div class="yt-card-delta-label" data-i18n="ytc.last10min">直近10分</div>
-              <div class="yt-card-delta-value loading" data-delta="min10">…</div>
+              <div class="yt-card-delta-label" data-i18n="ytc.last30min">直近30分</div>
+              <div class="yt-card-delta-value loading" data-delta="min30">…</div>
             </div>
             <div class="yt-card-delta">
               <div class="yt-card-delta-label" data-i18n="ytc.lastHour">直近1時間</div>
@@ -3091,7 +3091,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':          '▶ 推しカメラ 再生回数 LIVE',
       'ytc.loading':        '読み込み中...',
       'ytc.views':          '回再生',
-      'ytc.last10min':      '直近10分',
+      'ytc.last30min':      '直近30分',
       'ytc.lastHour':       '直近1時間',
       'ytc.last24h':        '過去24時間',
       'movie.featuredLabel':'目指せ30万回再生！',
@@ -3237,7 +3237,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ 오시카메라 재생수 LIVE',
       'ytc.loading':  '불러오는 중...',
       'ytc.views':    '회 재생',
-      'ytc.last10min': '최근 10분',
+      'ytc.last30min': '최근 30분',
       'ytc.lastHour': '최근 1시간',
       'ytc.last24h':  '지난 24시간',
       'movie.featuredLabel': '목표 30만 재생！',
@@ -3377,7 +3377,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ Oshi Camera Views LIVE',
       'ytc.loading':  'Loading...',
       'ytc.views':    ' views',
-      'ytc.last10min': 'Last 10 min',
+      'ytc.last30min': 'Last 30 min',
       'ytc.lastHour': 'Last 1 hour',
       'ytc.last24h':  'Last 24 hours',
       'movie.featuredLabel': 'Goal: 300K Views！',
@@ -3517,7 +3517,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
       'ytc.title':    '▶ 推镜头 播放数 LIVE',
       'ytc.loading':  '加载中...',
       'ytc.views':    '次播放',
-      'ytc.last10min': '最近10分钟',
+      'ytc.last30min': '最近30分钟',
       'ytc.lastHour': '最近1小时',
       'ytc.last24h':  '过去24小时',
       'movie.featuredLabel': '目标30万播放！',
@@ -3869,7 +3869,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
         const card = document.querySelector(`[data-video-id="${v.id}"]`);
         if (!card) return;
         const numEl = card.querySelector('.yt-views-num');
-        const min10El = card.querySelector('[data-delta="min10"]');
+        const min30El = card.querySelector('[data-delta="min30"]');
         const hourEl = card.querySelector('[data-delta="hour"]');
         const dayEl = card.querySelector('[data-delta="day"]');
 
@@ -3887,7 +3887,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.c
           }
         };
 
-        setDelta(min10El, v.delta10min);
+        setDelta(min30El, v.delta30min);
         setDelta(hourEl, v.deltaHour);
         setDelta(dayEl, v.deltaDay);
       });
